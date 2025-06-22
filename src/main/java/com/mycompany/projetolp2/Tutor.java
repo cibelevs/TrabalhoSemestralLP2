@@ -4,7 +4,7 @@
  */
 package com.mycompany.projetolp2;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 //O tutor deve ter um cadastro com nome,
 //cpf, email, telefone de contato e endereço. 
@@ -14,12 +14,12 @@ package com.mycompany.projetolp2;
 public class Tutor extends Pessoa
 {
     private String endereco;
-    //private ArrayList<Animal> animais;
+    private ArrayList<Animal> animais;
     
     public Tutor(String nome, String cpf, String email, String telefone, String endereco){
         super(nome, cpf, email, telefone);
         this.endereco = endereco;
-        //animais = new ArrayList<Animal>();
+        animais = new ArrayList<>();
     }
 
     public String getEndereco() {
@@ -29,5 +29,15 @@ public class Tutor extends Pessoa
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+    public ArrayList<Animal> getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(ArrayList<Animal> animais) {
+        this.animais = animais;
+    }
+
+   
     
 }

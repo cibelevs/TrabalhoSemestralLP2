@@ -4,6 +4,8 @@
  */
 package com.mycompany.projetolp2;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author T-GAMER
@@ -11,11 +13,10 @@ package com.mycompany.projetolp2;
 public class RegistroVacina {
 
     private Vacina vacina;
-    private String dataAplicacao, dataValidade;
+    private LocalDate dataAplicacao;
+    private LocalDate dataValidade;
 
-    
-    public RegistroVacina(Vacina vacina, String dataAplicacao, String dataValidade)
-    {
+    public RegistroVacina(Vacina vacina, LocalDate dataAplicacao, LocalDate dataValidade) {
         this.vacina = vacina;
         this.dataAplicacao = dataAplicacao;
         this.dataValidade = dataValidade;
@@ -29,21 +30,21 @@ public class RegistroVacina {
         this.vacina = vacina;
     }
 
-    public String getDataAplicacao() {
+    public LocalDate getDataAplicacao() {
         return dataAplicacao;
     }
 
-    public void setDataAplicacao(String dataAplicacao) {
+    public void setDataAplicacao(LocalDate dataAplicacao) {
         this.dataAplicacao = dataAplicacao;
     }
 
-    public String getDataValidade() {
+    public LocalDate getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(String dataValidade) {
+    public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
     }
-        
+    
     
 }

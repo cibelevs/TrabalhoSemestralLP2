@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.projetolp2;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -10,13 +12,14 @@ package com.mycompany.projetolp2;
  */
 public class Vacina
 {
-   private String nome, dataVencimento;
+   private String nome;
    private double preco;
-   
-   public Vacina(String nome, String dataVencimento, double preco){
+   private LocalDate dataVencimento;
+
+    public Vacina(String nome, double preco, LocalDate dataVencimento) {
         this.nome = nome;
-        this.dataVencimento = dataVencimento;
         this.preco = preco;
+        this.dataVencimento = dataVencimento;
     }
 
     public String getNome() {
@@ -27,20 +30,20 @@ public class Vacina
         this.nome = nome;
     }
 
-    public String getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(String dataVencimento) {
-        this.dataVencimento = dataVencimento;
-    }
-
     public double getPreco() {
         return preco;
     }
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
     }
    
 }

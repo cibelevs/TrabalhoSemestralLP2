@@ -4,7 +4,7 @@
  */
 package com.mycompany.projetolp2;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Animal
 {
@@ -13,15 +13,14 @@ public class Animal
     private String nome, raca;
     private String dataNascimento; //coloquei em string 
     private Tutor tutor;
-    //private ArrayList<RegistroVacina> vacinasTomadas;
+    private ArrayList<RegistroVacina> vacinasTomadas;
 
-    public Animal(String nome, String raca, String dataNascimento, Tutor tutor)
-    {
+    public Animal(String nome, String raca, String dataNascimento, Tutor tutor, ArrayList<RegistroVacina> vacinasTomadas) {
         this.nome = nome;
         this.raca = raca;
+        this.dataNascimento = dataNascimento;
         this.tutor = tutor;
-        this.dataNascimento =  dataNascimento;
-        
+        this.vacinasTomadas = vacinasTomadas;
     }
 
     public String getNome() {
@@ -56,5 +55,14 @@ public class Animal
         this.tutor = tutor;
     }
 
+    public ArrayList<RegistroVacina> getVacinasTomadas() {
+        return vacinasTomadas;
+    }
+
+    public void setVacinasTomadas(ArrayList<RegistroVacina> vacinasTomadas) {
+        this.vacinasTomadas = vacinasTomadas;
+    }
+
+   
     
 }

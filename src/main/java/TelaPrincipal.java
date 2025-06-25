@@ -14,8 +14,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        corrigirIcones();
+        
     }
 
+    private void corrigirIcones() {
+    try {
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/door_out.png")));
+    } catch (Exception e) {
+        System.out.println("Erro ao carregar ícone do menu: " + e.getMessage());
+    }
+}
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +73,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Funcionario");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setMnemonic('a');
@@ -119,6 +137,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(helpMenu);
 
+        jMenu1.setText("jMenu1");
+        menuBar.add(jMenu1);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,9 +166,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         // TODO add your handling code here:
-        CadVet c = new CadVet();
-        c.setVisible(true);
+        CadVet cad = new CadVet();
+        cad.setVisible(true);
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+            // TODO add your handling code here:
+        CadFuncionario cadFunc = new CadFuncionario();
+        cadFunc.setVisible(true);
+    }//GEN-LAST:event_saveMenuItemActionPerformed
 
     
     
@@ -198,6 +225,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

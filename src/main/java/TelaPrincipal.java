@@ -44,17 +44,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/door_out.png"))); // NOI18N
         fileMenu.setMnemonic('f');
         fileMenu.setText("Cadastro");
 
@@ -94,38 +93,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(exitMenuItem);
 
-        jMenuItem2.setText("Consulta");
-        fileMenu.add(jMenuItem2);
-
-        jMenuItem3.setText("Agendamento");
-        fileMenu.add(jMenuItem3);
-
         menuBar.add(fileMenu);
 
+        editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/page.png"))); // NOI18N
         editMenu.setMnemonic('e');
-        editMenu.setText("Editar");
+        editMenu.setText("Consultas");
 
         cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cadastro");
+        cutMenuItem.setText("Agendamentos");
         editMenu.add(cutMenuItem);
+
+        jMenuItem1.setText("Vacinas");
+        editMenu.add(jMenuItem1);
+
+        jMenuItem4.setText("Consultas imediatas");
+        editMenu.add(jMenuItem4);
 
         menuBar.add(editMenu);
 
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("help");
-
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
-
-        jMenu1.setText("jMenu1");
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user_edit.png"))); // NOI18N
+        jMenu1.setText("Editar");
         menuBar.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zoom.png"))); // NOI18N
+        jMenu2.setText("Pesquisa");
+        menuBar.add(jMenu2);
 
         setJMenuBar(menuBar);
 
@@ -209,17 +201,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;

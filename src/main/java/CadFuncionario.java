@@ -95,7 +95,7 @@ public class CadFuncionario extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(43, 43, 43)
                                 .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                 .addComponent(jRadioButton2)
                                 .addGap(59, 59, 59))
                             .addGroup(layout.createSequentialGroup()

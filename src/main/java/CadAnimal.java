@@ -1,3 +1,9 @@
+
+import back_end.Animal;
+import back_end.Tutor;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,8 +18,15 @@ public class CadAnimal extends javax.swing.JFrame {
     /**
      * Creates new form CadAnimal
      */
-    public CadAnimal() {
+    private Tutor tutor;
+
+    public CadAnimal(Tutor tutor) {
+        this.tutor = tutor;
         initComponents();
+    }
+
+    public CadAnimal() {
+        //initComponents();
     }
 
     /**
@@ -47,6 +60,11 @@ public class CadAnimal extends javax.swing.JFrame {
         jLabel4.setText("Data de Nascimento:");
 
         jButton1.setText("SALVAR CADASTRO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("ADICIONAR OUTRO ANIMAL");
 
@@ -107,6 +125,20 @@ public class CadAnimal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nome = txtNome.getText();
+        String raca = txtRaca.getText();
+        String dataNascimento = txtDataNascimento.getText();
+
+        // Cria o animal e adiciona ao tutor
+        Animal animal = new Animal(nome, raca, dataNascimento, tutor, new ArrayList<>());
+        tutor.getAnimais().add(animal);
+
+        // Mensagem de confirmação
+        JOptionPane.showMessageDialog(this, "Animal cadastrado para o tutor: " + tutor.getNome());
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

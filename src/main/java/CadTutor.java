@@ -1,3 +1,7 @@
+
+import back_end.DadosApp;
+import back_end.Tutor;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -143,9 +147,25 @@ public class CadTutor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        CadAnimal cad = new CadAnimal();
+                                            
+        // Coletar dados do formulário
+        String nome = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String telefone = txtTelefone.getText();
+        String email = txtEmail.getText();
+        String endereco = txtEndereco.getText();
+
+        // Criar objeto Tutor
+        Tutor tutor = new Tutor(nome, cpf, email, telefone, endereco);
+
+        // Salvar na clínica (DadosApp)
+        DadosApp.clinica.getTutores().add(tutor);
+
+        // Abrir tela CadAnimal e passar o tutor
+        CadAnimal cad = new CadAnimal(tutor);
         cad.setVisible(true);
+    
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

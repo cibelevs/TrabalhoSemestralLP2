@@ -44,7 +44,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
@@ -81,20 +80,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Vacinas");
+        saveAsMenuItem.setText("Tutor");
+        saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveAsMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveAsMenuItem);
 
         exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Tutor");
+        exitMenuItem.setText("Vacina");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitMenuItemActionPerformed(evt);
             }
         });
         fileMenu.add(exitMenuItem);
-
-        jMenuItem1.setText("Animal");
-        fileMenu.add(jMenuItem1);
 
         jMenuItem2.setText("Consulta");
         fileMenu.add(jMenuItem2);
@@ -176,6 +177,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cadFunc.setVisible(true);
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
+    private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
+        // TODO add your handling code here:
+        CadTutor cad = new CadTutor();
+        cad.setVisible(true);
+    }//GEN-LAST:event_saveAsMenuItemActionPerformed
+
     
     
     
@@ -226,7 +233,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;

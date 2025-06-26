@@ -50,6 +50,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +119,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\zoom.png")); // NOI18N
         jMenu2.setText("Pesquisa");
+
+        jMenuItem3.setText("Animal");
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem5.setText("Vacina");
+        jMenu2.add(jMenuItem5);
+
         menuBar.add(jMenu2);
 
         setJMenuBar(menuBar);
@@ -209,7 +218,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;

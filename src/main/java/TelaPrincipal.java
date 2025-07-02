@@ -55,7 +55,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fileMenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\door_out.png")); // NOI18N
         fileMenu.setMnemonic('f');
         fileMenu.setText("Cadastro");
 
@@ -97,7 +96,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\page.png")); // NOI18N
         editMenu.setMnemonic('e');
         editMenu.setText("Consultas");
 
@@ -113,11 +111,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\user_edit.png")); // NOI18N
         jMenu1.setText("Editar");
         menuBar.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\zoom.png")); // NOI18N
         jMenu2.setText("Pesquisa");
 
         jMenuItem3.setText("Animal");

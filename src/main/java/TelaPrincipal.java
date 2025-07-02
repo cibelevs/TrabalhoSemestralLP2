@@ -44,6 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -93,6 +94,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         fileMenu.add(exitMenuItem);
+
+        jMenuItem2.setText("Adicionar Animal");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem2);
 
         menuBar.add(fileMenu);
 
@@ -175,8 +184,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         CadTutor cad = new CadTutor();
         cad.setVisible(true);
+        
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
+featurePesquisa
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         PesqPessoa pesqPessoa;
@@ -189,6 +200,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         PesqAnimal pesqAnimal;
         pesqAnimal = new PesqAnimal();
         pesqAnimal.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
@@ -239,6 +251,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+  featurePesquisa
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;

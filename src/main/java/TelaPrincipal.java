@@ -116,7 +116,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Pesquisa");
 
-        jMenuItem3.setText("Animal");
+        jMenuItem3.setText("Pessoa");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem5.setText("Vacina");
@@ -166,6 +171,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadTutor cad = new CadTutor();
         cad.setVisible(true);
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        TelaPesquisa pesqPessoa;
+        pesqPessoa = new TelaPesquisa();
+        pesqPessoa.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     
     

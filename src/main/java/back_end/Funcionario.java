@@ -9,14 +9,15 @@ public class Funcionario extends Pessoa
     private String turnoTrabalho;
     private String funcao;
     
-    public Funcionario(String nome, String cpf, String email, String telefone, String turnoTrabalho)
+    public Funcionario(String nome, String cpf, String email, String telefone, String turnoTrabalho,String funcao)
     {
         super(nome, cpf, email, telefone);
         this.turnoTrabalho = turnoTrabalho;
         this.funcao=funcao;
     }
     
-  
+
+
 
     public String getTurnoTrabalho() {
         return turnoTrabalho;

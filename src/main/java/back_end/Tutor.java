@@ -38,6 +38,28 @@ public class Tutor extends Pessoa
         this.animais = animais;
     }
 
+   public String imprimirAnimais() {
+    StringBuilder sb = new StringBuilder();
+
+    if (animais.isEmpty()) {
+        sb.append("\nEste tutor não possui animais cadastrados.");
+    } else {
+        sb.append("\nAnimais do Tutor:");
+        for (Animal an : animais) {
+            sb.append("\n - Nome: ").append(an.getNome());
+            // adicione outros dados do animal se quiser
+        }
+    }
+
+    return sb.toString();
+}
+
+    
+    @Override
+    public String getDados(){
+        return "Endereco: " + this.getEndereco() + "\n" +
+               imprimirAnimais();
+    }
    
     
 }

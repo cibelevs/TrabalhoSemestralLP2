@@ -35,5 +35,10 @@ public class Veterinario extends Pessoa
         this.numeroCfmv = numeroCfmv;
     }
     
+    @Override
+    public String getDados(){
+        return "Especialidade: " + this.getEspecialidade() + "\n" +
+                "Numero CFMV: " + this.getNumeroCfmv() + "\n";      
+    }
   
 }

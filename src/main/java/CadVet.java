@@ -7,6 +7,10 @@
  *
  * @author T-GAMER
  */
+
+import back_end.Veterinario;
+import back_end.DadosApp;
+
 public class CadVet extends javax.swing.JFrame {
 
     /**
@@ -14,6 +18,45 @@ public class CadVet extends javax.swing.JFrame {
      */
     public CadVet() {
         initComponents();
+        
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarVeterinario();
+            }
+        });
+    }
+    
+    private void salvarVeterinario() {
+    String nome = txtNome.getText();
+    String cpf = txtCpf.getText();
+    String telefone = txtTelefone.getText();
+    String email = txtEmail.getText();
+    String especialidade = txtEspecialidade.getText();
+    String numeroCfmv = txtNumeroCfmv.getText();
+    
+    double precoConsulta = 0.0;
+    try {
+        precoConsulta = Double.parseDouble(txtPrecoConsulta.getText());
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Preço da consulta inválido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Cria o veterinário
+    Veterinario vet = new Veterinario(nome, cpf, email, telefone, especialidade, numeroCfmv, precoConsulta);
+
+    // Salva no "banco de dados" da clínica
+    back_end.DadosApp.clinica.adicionarVeterinario(vet);
+    
+    System.out.println("Veterinários cadastrados:"); //teste de mesa
+
+    for (Veterinario v : DadosApp.clinica.getVeterinarios()) { //teste de mesa
+    System.out.println("- " + v.getNome() + " | " + v.getEspecialidade());
+
+    // Mensagem de sucesso
+    javax.swing.JOptionPane.showMessageDialog(this, "Veterinário cadastrado com sucesso:\n" + vet.getNome());
+
+}
     }
 
     /**

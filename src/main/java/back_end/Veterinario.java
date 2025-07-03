@@ -11,12 +11,15 @@ package back_end;
 public class Veterinario extends Pessoa
 {
     private String especialidade, numeroCfmv;
+    private double precoConsulta;
     
-    public Veterinario(String nome, String cpf, String email, String telefone,String especialidade, String numeroCfmv)
+    public Veterinario(String nome, String cpf, String email, String telefone, 
+            String especialidade, String numeroCfmv, double precoConsulta)
     {
         super(nome, cpf, email, telefone);
         this.especialidade = especialidade;
         this.numeroCfmv = numeroCfmv;
+        this.precoConsulta = precoConsulta;
     }
 
     public String getEspecialidade() {
@@ -33,6 +36,14 @@ public class Veterinario extends Pessoa
 
     public void setNumeroCfmv(String numeroCfmv) {
         this.numeroCfmv = numeroCfmv;
+    }
+    
+    public double getPrecoConsulta() {
+        return precoConsulta;
+    }
+    
+    public void setPrecoConsulta(double precoConsulta) {
+        this.precoConsulta = precoConsulta;
     }
     
     @Override

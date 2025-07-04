@@ -115,6 +115,8 @@ public class Clinica {
         return pessoas;
     }
     
+      
+    
     // para marcar consulta.....
     public boolean horarioDisponivel(LocalDateTime dataHora) {
     // Valida se o horário está dentro do intervalo permitido
@@ -184,9 +186,21 @@ public class Clinica {
             System.out.println("Horário atual ocupado. Próximo disponível: " + proximo);
         }
     }
-
-
-
+    
+     public boolean adicionarVacina(Vacina vacina) {
+        for (Vacina v : vacinas) {
+            if (v.getNome().equalsIgnoreCase(vacina.getNome())) {
+                return false; // Vacina já existe
+            }
+        }
+        vacinas.add(vacina);
+        return true;
+    }
+     
+   
+     
+    
+    
 
 
     

@@ -10,6 +10,7 @@
 
 import back_end.Veterinario;
 import back_end.DadosApp;
+import javax.swing.JOptionPane;
 
 public class CadVet extends javax.swing.JFrame {
 
@@ -36,8 +37,8 @@ public class CadVet extends javax.swing.JFrame {
      */
     public CadVet() {
         initComponents();
-        
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btmExcluir.setVisible(false); 
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarVeterinario();
             }
@@ -91,6 +92,9 @@ public class CadVet extends javax.swing.JFrame {
         txtEspecialidade.setText(v.getEspecialidade());
         txtNumeroCfmv.setText(v.getNumeroCfmv());
         txtPrecoConsulta.setText(String.format("%.2f", v.getPrecoConsulta())); 
+        
+        btmExcluir.setVisible(true); 
+        Cadastrar.setText("ATUALIZAR");
     }
 
     
@@ -118,7 +122,8 @@ public class CadVet extends javax.swing.JFrame {
         txtEspecialidade = new javax.swing.JTextField();
         txtNumeroCfmv = new javax.swing.JTextField();
         txtPrecoConsulta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Cadastrar = new javax.swing.JButton();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -146,7 +151,14 @@ public class CadVet extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("SALVAR CADASTRO");
+        Cadastrar.setText("CADASTRAR");
+
+        btmExcluir.setText("EXCLUIR");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,7 +201,9 @@ public class CadVet extends javax.swing.JFrame {
                 .addGap(120, 120, 120))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -226,7 +240,9 @@ public class CadVet extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtPrecoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Cadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btmExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(40, 40, 40))
         );
 
@@ -236,6 +252,23 @@ public class CadVet extends javax.swing.JFrame {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(
+        this,
+        "Tem certeza que deseja excluir este Veterinario?",
+        "Confirmar Exclusão",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            DadosApp.clinica.getVeterinarios().remove( veterinarioEditado);
+            JOptionPane.showMessageDialog(this, "Veterinario excluído com sucesso!");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btmExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,8 +306,9 @@ public class CadVet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cadastrar;
     private javax.swing.JLabel TITULO;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

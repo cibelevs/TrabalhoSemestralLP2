@@ -23,12 +23,15 @@ public class CadFuncionario extends javax.swing.JFrame {
      */
     public CadFuncionario() {
         initComponents();
+        btmExcluir.setVisible(false);
     }
     
     public CadFuncionario(boolean update) {
         initComponents();
         this.update = update;
         TITULO.setText("Atualizar dados de Funcionario");
+        btmExcluir.setVisible(true);
+        Cadastrar.setText("ATUALIZAR");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,8 +56,9 @@ public class CadFuncionario extends javax.swing.JFrame {
         turno_manha = new javax.swing.JRadioButton();
         turno_tarde = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        CadastrarFuncionario = new javax.swing.JButton();
+        Cadastrar = new javax.swing.JButton();
         txtFuncao = new javax.swing.JTextField();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,11 +103,11 @@ public class CadFuncionario extends javax.swing.JFrame {
 
         jLabel7.setText("Função:");
 
-        CadastrarFuncionario.setText("Cadastrar Funcionario");
-        CadastrarFuncionario.setName("SalvarCadastro"); // NOI18N
-        CadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+        Cadastrar.setText("CADASTRAR ");
+        Cadastrar.setName("SalvarCadastro"); // NOI18N
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadastrarFuncionarioActionPerformed(evt);
+                CadastrarActionPerformed(evt);
             }
         });
 
@@ -114,6 +118,13 @@ public class CadFuncionario extends javax.swing.JFrame {
             }
         });
 
+        btmExcluir.setText("EXCLUIR");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,35 +132,38 @@ public class CadFuncionario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addComponent(TITULO)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail)
-                            .addComponent(txtTelefone)
-                            .addComponent(txtCpf)
-                            .addComponent(txtNome)
-                            .addComponent(txtFuncao)))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(turno_manha)
+                        .addGap(75, 75, 75)
+                        .addComponent(turno_tarde)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(turno_manha)
-                                .addGap(75, 75, 75)
-                                .addComponent(turno_tarde)))
-                        .addGap(0, 79, Short.MAX_VALUE)))
-                .addGap(168, 168, 168))
+                                .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)
+                                .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtTelefone)
+                                    .addComponent(txtCpf)
+                                    .addComponent(txtNome)
+                                    .addComponent(txtFuncao))))
+                        .addGap(117, 117, 117))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,9 +195,11 @@ public class CadFuncionario extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(turno_manha)
                     .addComponent(turno_tarde))
-                .addGap(38, 38, 38)
-                .addComponent(CadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,7 +213,7 @@ public class CadFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_turno_manhaActionPerformed
 
-    private void CadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFuncionarioActionPerformed
+    private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
                                                   
     List<JTextField> campos = List.of(txtNome, txtCpf, txtTelefone, txtEmail, txtFuncao);
     if (Utilitarios.validaCampos(campos)) {
@@ -241,7 +257,7 @@ public class CadFuncionario extends javax.swing.JFrame {
 
     this.dispose();
 
-    }//GEN-LAST:event_CadastrarFuncionarioActionPerformed
+    }//GEN-LAST:event_CadastrarActionPerformed
 
     
     
@@ -264,6 +280,23 @@ public class CadFuncionario extends javax.swing.JFrame {
     private void txtFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFuncaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFuncaoActionPerformed
+
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(
+        this,
+        "Tem certeza que deseja excluir este Funcionario?",
+        "Confirmar Exclusão",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            DadosApp.clinica.getFuncionarios().remove(funcEncontrado);
+            JOptionPane.showMessageDialog(this, "Funcionario excluído com sucesso!");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btmExcluirActionPerformed
 
     
   
@@ -304,8 +337,9 @@ public class CadFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CadastrarFuncionario;
+    private javax.swing.JButton Cadastrar;
     private javax.swing.JLabel TITULO;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

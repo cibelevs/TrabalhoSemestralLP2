@@ -39,7 +39,7 @@ public class Funcionario extends Pessoa
 
     @Override
   public String getDados(){
-      return "Turno de Trabalho: " + this.getTurnoTrabalho() + "\n" +
+      return "\nTurno de Trabalho: " + this.getTurnoTrabalho() + "\n" +
               "Funcao: " + this.getFuncao();
   }
     

@@ -24,13 +24,16 @@ public class CadAnimal extends javax.swing.JFrame {
      * Creates new form CadAnimal
      */
      public CadAnimal() {
-        initComponents(); // <-- CHAMADA NECESSÁRIA
+        initComponents(); 
+        btmExcluir.setVisible(false);
     }
      
     public CadAnimal(boolean update) {
         initComponents();
         this.update = update;
         TITULO.setText("Atualizar dados de Animal");
+        Cadastrar.setText("ATUALIZAR");
+        btmExcluir.setVisible(true);
     }
 
    
@@ -55,11 +58,12 @@ public class CadAnimal extends javax.swing.JFrame {
         txtRaca = new javax.swing.JTextField();
         txtDataNascimento = new javax.swing.JTextField();
         Sair = new javax.swing.JButton();
-        Adicionar = new javax.swing.JButton();
+        Cadastrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtCpfTutor = new javax.swing.JTextField();
         txtNomeTutor = new javax.swing.JTextField();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,10 +83,10 @@ public class CadAnimal extends javax.swing.JFrame {
             }
         });
 
-        Adicionar.setText("Adicionar");
-        Adicionar.addActionListener(new java.awt.event.ActionListener() {
+        Cadastrar.setText("CADASTRAR");
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdicionarActionPerformed(evt);
+                CadastrarActionPerformed(evt);
             }
         });
 
@@ -90,44 +94,55 @@ public class CadAnimal extends javax.swing.JFrame {
 
         jLabel6.setText("Nome do Tutor:");
 
+        btmExcluir.setText("EXCLUIR");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDataNascimento))
+                        .addGap(21, 21, 21)
+                        .addComponent(TITULO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRaca, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpfTutor)
-                            .addComponent(txtNomeTutor))))
-                .addContainerGap(96, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(TITULO)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDataNascimento))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtRaca, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCpfTutor)
+                                    .addComponent(txtNomeTutor))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,9 +171,11 @@ public class CadAnimal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCpfTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(Adicionar)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cadastrar)
+                    .addComponent(btmExcluir))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,7 +186,7 @@ public class CadAnimal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SairActionPerformed
 
-    private void AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarActionPerformed
+    private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
     // TODO add your handling code here:
     List<JTextField> campos = List.of(txtNome, txtRaca, txtDataNascimento, txtNomeTutor, txtCpfTutor);
 
@@ -205,7 +222,52 @@ public class CadAnimal extends javax.swing.JFrame {
         
         this.dispose();
 
-    }//GEN-LAST:event_AdicionarActionPerformed
+    }//GEN-LAST:event_CadastrarActionPerformed
+
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(
+            this,
+            "Tem certeza que deseja excluir este Animal?",
+            "Confirmar Exclusão",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            String nomeAnimal = txtNome.getText().trim(); // nome do animal
+            String cpfTutor = txtCpfTutor.getText().trim(); // CPF do tutor
+
+            boolean animalRemovido = false;
+
+            for (Tutor t : DadosApp.clinica.getTutores()) {
+                if (t.getCpf().equals(cpfTutor)) {
+                    // Procura o animal dentro da lista do tutor
+                    Animal animalParaRemover = null;
+                    for (Animal a : t.getAnimais()) {
+                        if (a.getNome().equalsIgnoreCase(nomeAnimal)) {
+                            animalParaRemover = a;
+                            break;
+                        }
+                    }
+
+                    if (animalParaRemover != null) {
+                        t.getAnimais().remove(animalParaRemover);
+                        animalRemovido = true;
+                    }
+
+                    break; // CPF é único, pode sair do loop
+                }
+            }
+
+            if (animalRemovido) {
+                JOptionPane.showMessageDialog(this, "Animal excluído com sucesso!");
+                this.dispose(); // Fecha a tela
+            } else {
+                JOptionPane.showMessageDialog(this, "Animal ou Tutor não encontrado.");
+            }
+        }
+    }//GEN-LAST:event_btmExcluirActionPerformed
 
     public void modificarDados(Animal an){
         an.setNome(txtNome.getText());
@@ -267,9 +329,10 @@ public class CadAnimal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Adicionar;
+    private javax.swing.JButton Cadastrar;
     private javax.swing.JButton Sair;
     private javax.swing.JLabel TITULO;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

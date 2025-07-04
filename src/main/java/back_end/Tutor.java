@@ -57,7 +57,7 @@ public class Tutor extends Pessoa
     
     @Override
     public String getDados(){
-        return "Endereco: " + this.getEndereco() + "\n" +
+        return "\nEndereco: " + this.getEndereco() + "\n" +
                imprimirAnimais();
     }
    

@@ -98,6 +98,10 @@ public class Clinica {
         pessoas.addAll(veterinarios);
     }
 
+    public  ArrayList<Pessoa> listaAtual(){
+        atualizarListaDePessoas();
+        return pessoas;
+    }
     // Método para obter a lista de pessoas
     public ArrayList<Pessoa> getPessoas() {
         return pessoas;

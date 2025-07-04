@@ -115,6 +115,9 @@ public class PesqAnimal extends javax.swing.JFrame {
                 for(Animal an: t.getAnimais()){
                     if(an.getNome().equals(txtNomeAnimal.getText())){
                         JOptionPane.showMessageDialog(this, "ANIMAL ENCONTRADO");
+                        InfoAnimal infoAnimal = new InfoAnimal();
+                        infoAnimal.imprimir(an);
+                        infoAnimal.setVisible(true);
                         //abrir pagina aqui mostrando dados do animal e se quer imprimir o prontuario contendo:
                         // cartao vacina
                         // vacinas que estao para vencer

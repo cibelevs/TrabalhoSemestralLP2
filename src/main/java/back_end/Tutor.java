@@ -55,6 +55,7 @@ public class Tutor extends Pessoa
 }
 
     
+    
     @Override
     public String getDados(){
         return "\nEndereco: " + this.getEndereco() + "\n" +

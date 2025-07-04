@@ -254,6 +254,8 @@ public class CadFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFuncaoActionPerformed
 
+    
+  
  
     /**
      * @param args the command line arguments

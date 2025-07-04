@@ -1,4 +1,5 @@
 
+import back_end.Animal;
 import back_end.DadosApp;
 import back_end.Tutor;
 import back_end.Veterinario;
@@ -59,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         atualizarFuncionario = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         pesquisaPessoa = new javax.swing.JMenuItem();
         pesquisaAnimal = new javax.swing.JMenuItem();
@@ -139,6 +141,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(atualizarFuncionario);
+
+        jMenuItem2.setText("Atualizar Animal");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         menuBar.add(jMenu1);
 
@@ -253,10 +263,47 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void atualizarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarFuncionarioActionPerformed
         // TODO add your handling code here:
-                CadFuncionario cadFunc = new CadFuncionario(true);
-                cadFunc.setVisible(true);
+            
+            CadFuncionario cadFunc = new CadFuncionario(true);
+            cadFunc.setVisible(true);
         
     }//GEN-LAST:event_atualizarFuncionarioActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Tutor:");
+        String nomeBusca = JOptionPane.showInputDialog(this, "Digite o Nome do Animal:");
+
+        Tutor tutorEncontrado = null;
+
+        if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
+            for (Tutor t : DadosApp.clinica.getTutores()) {
+                if (t.getCpf().equals(cpfBusca)) {
+                    tutorEncontrado = t;
+                    break;
+                }
+            }
+        }
+
+        if (tutorEncontrado != null) {
+            boolean animalEncontrado = false;
+            for(Animal an: tutorEncontrado.getAnimais()){
+                if(an.getNome().equals(nomeBusca)){
+                    CadAnimal telaCadastro = new CadAnimal(); // passa tutor encontrado
+                    telaCadastro.inserirDados(an);
+                    telaCadastro.setVisible(true);
+                    animalEncontrado = true;
+                    break;
+                }
+            }
+            if (!animalEncontrado) {
+                JOptionPane.showMessageDialog(this, "Animal não encontrado.");
+            }   
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     
@@ -308,6 +355,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;

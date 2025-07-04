@@ -186,12 +186,22 @@ public class CadAnimal extends javax.swing.JFrame {
         new ArrayList<>()      
     );
 
-    
+    tutor.getAnimais().add(newAnimal);
     JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
     this.dispose();
 
     }//GEN-LAST:event_AdicionarActionPerformed
 
+    
+    public void inserirDados(Animal a){
+        txtNome.setText(a.getNome());
+        txtRaca.setText(a.getRaca());
+        txtDataNascimento.setText(a.getDataNascimento());
+        txtNomeTutor.setText(a.getTutor().getNome());
+        txtCpfTutor.setText(a.getTutor().getCpf());
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

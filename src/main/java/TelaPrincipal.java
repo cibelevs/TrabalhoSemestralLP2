@@ -44,16 +44,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fileMenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\door_out.png")); // NOI18N
         fileMenu.setMnemonic('f');
         fileMenu.setText("Cadastro");
 
@@ -93,9 +95,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(exitMenuItem);
 
+        jMenuItem2.setText("Adicionar Animal");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem2);
+
         menuBar.add(fileMenu);
 
-        editMenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\page.png")); // NOI18N
         editMenu.setMnemonic('e');
         editMenu.setText("Consultas");
 
@@ -111,12 +120,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\user_edit.png")); // NOI18N
         jMenu1.setText("Editar");
         menuBar.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\T-GAMER\\Downloads\\images\\zoom.png")); // NOI18N
         jMenu2.setText("Pesquisa");
+
+        jMenuItem3.setText("Pessoa");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem2.setText("Animal");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         menuBar.add(jMenu2);
 
         setJMenuBar(menuBar);
@@ -160,7 +184,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         CadTutor cad = new CadTutor();
         cad.setVisible(true);
+        
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        PesqPessoa pesqPessoa;
+        pesqPessoa = new PesqPessoa();
+        pesqPessoa.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        PesqAnimal pesqAnimal;
+        pesqAnimal = new PesqAnimal();
+        pesqAnimal.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     
@@ -209,6 +249,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;

@@ -6,6 +6,7 @@ package back_end;
 
 public class Funcionario extends Pessoa
 {
+
     private String turnoTrabalho;
     private String funcao;
     
@@ -14,6 +15,14 @@ public class Funcionario extends Pessoa
         super(nome, cpf, email, telefone);
         this.turnoTrabalho = turnoTrabalho;
         this.funcao=funcao;
+
+    private String turnoTrabalho, Funcao;
+
+    public Funcionario(String turnoTrabalho, String Funcao, String nome, String cpf, String email, String telefone) {
+        super(nome, cpf, email, telefone);
+        this.turnoTrabalho = turnoTrabalho;
+        this.Funcao = Funcao;
+
     }
     
 
@@ -26,6 +35,22 @@ public class Funcionario extends Pessoa
     public void setTurnoTrabalho(String turnoTrabalho) {
         this.turnoTrabalho = turnoTrabalho;
     }
+
+    public String getFuncao() {
+        return Funcao;
+    }
+
+    public void setFuncao(String Funcao) {
+        this.Funcao = Funcao;
+    }
+
+    @Override
+  public String getDados(){
+      return "Turno de Trabalho: " + this.getTurnoTrabalho() + "\n" +
+              "Funcao: " + this.getFuncao();
+  }
+    
+    
     
     public String getFuncao (){
         

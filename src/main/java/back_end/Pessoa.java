@@ -49,5 +49,6 @@ public abstract class Pessoa
         this.telefone = telefone;
     }
     
+    public abstract String getDados();
     
 }

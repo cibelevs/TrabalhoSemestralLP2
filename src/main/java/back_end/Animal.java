@@ -6,7 +6,7 @@ package back_end;
 
 import java.util.ArrayList;
 
-public class Animal
+public class Animal 
 {
     //Todo animal atendido na clínica deve
     //ser cadastrado como nome, raça, data de nascimento e tutor
@@ -63,6 +63,6 @@ public class Animal
         this.vacinasTomadas = vacinasTomadas;
     }
 
-   
+    
     
 }

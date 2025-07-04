@@ -1,6 +1,10 @@
 
 import back_end.DadosApp;
 import back_end.Tutor;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -40,7 +44,7 @@ public class CadTutor extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        cadastrarTutor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,10 +68,10 @@ public class CadTutor extends javax.swing.JFrame {
 
         jLabel6.setText("Endereco:");
 
-        jButton1.setText("CADASTRAR ANIMAIS");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cadastrarTutor.setText("CADASTRAR");
+        cadastrarTutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cadastrarTutorActionPerformed(evt);
             }
         });
 
@@ -87,27 +91,27 @@ public class CadTutor extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
+                                .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCpf)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(24, 24, 24)
-                                .addComponent(txtEmail))
+                                    .addComponent(txtNome)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtTelefone))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEndereco)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                                    .addComponent(txtEndereco))))))
                 .addGap(132, 132, 132))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(cadastrarTutor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,9 +138,9 @@ public class CadTutor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(cadastrarTutor)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,27 +150,17 @@ public class CadTutor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                                            
-        // Coletar dados do formulário
-        String nome = txtNome.getText();
-        String cpf = txtCpf.getText();
-        String telefone = txtTelefone.getText();
-        String email = txtEmail.getText();
-        String endereco = txtEndereco.getText();
-
-        // Criar objeto Tutor
-        Tutor tutor = new Tutor(nome, cpf, email, telefone, endereco);
-
-        // Salvar na clínica (DadosApp)
-        DadosApp.clinica.getTutores().add(tutor);
-
-        // Abrir tela CadAnimal e passar o tutor
-        CadAnimal cad = new CadAnimal(tutor);
-        cad.setVisible(true);
+    private void cadastrarTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarTutorActionPerformed
+    List<JTextField> campos = List.of(txtNome, txtCpf, txtTelefone, txtEndereco,txtEmail);
+    if (Utilitarios.validaCampos(campos)) {
+        return;
+    }
+    Tutor tutor = new Tutor(txtNome.getText(),txtCpf.getText(),txtEmail.getText(),txtTelefone.getText(),txtEndereco.getText());
+    DadosApp.clinica.getTutores().add(tutor);
     
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    JOptionPane.showMessageDialog(null, "Tutor cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+    this.dispose();
+    }//GEN-LAST:event_cadastrarTutorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +198,7 @@ public class CadTutor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cadastrarTutor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

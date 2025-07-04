@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author T-GAMER
  */
 public class Clinica {
+    private ArrayList<Pessoa> pessoas;
     private ArrayList<Veterinario> veterinarios;
     private ArrayList<Funcionario> funcionarios;
     private ArrayList<Tutor> tutores;
@@ -20,7 +21,8 @@ public class Clinica {
     private ArrayList<Vacina> vacinas;
     private ArrayList<Consulta> consultas;
 
-    public Clinica(ArrayList<Veterinario> veterinarios, ArrayList<Funcionario> funcionarios, ArrayList<Tutor> tutores, ArrayList<Agenda> agendamentos, ArrayList<Vacina> vacinas, ArrayList<Consulta> consultas) {
+    public Clinica(ArrayList<Pessoa> pessoas, ArrayList<Veterinario> veterinarios, ArrayList<Funcionario> funcionarios, ArrayList<Tutor> tutores, ArrayList<Agenda> agendamentos, ArrayList<Vacina> vacinas, ArrayList<Consulta> consultas) {
+        this.pessoas = pessoas;
         this.veterinarios = veterinarios;
         this.funcionarios = funcionarios;
         this.tutores = tutores;
@@ -35,6 +37,16 @@ public class Clinica {
 
     public void setVeterinarios(ArrayList<Veterinario> veterinarios) {
         this.veterinarios = veterinarios;
+    }
+    
+    public boolean adicionarVeterinario(Veterinario vet) { //encapsulando lógica adição e verificando se já existe por Cpf ou Cfmv 
+    for (Veterinario v : veterinarios) {                   //DadosApp.clinica.adicionarVeterinario(vet);
+        if (v.getCpf().equals(vet.getCpf()) || v.getNumeroCfmv().equals(vet.getNumeroCfmv())) {
+            return false; // já existe
+        }
+    }
+    veterinarios.add(vet);
+    return true;
     }
 
     public ArrayList<Funcionario> getFuncionarios() {
@@ -75,6 +87,20 @@ public class Clinica {
 
     public void setConsultas(ArrayList<Consulta> consultas) {
         this.consultas = consultas;
+    }
+    
+    
+
+    public void atualizarListaDePessoas() {
+        pessoas.clear();
+        pessoas.addAll(tutores);
+        pessoas.addAll(funcionarios);
+        pessoas.addAll(veterinarios);
+    }
+
+    // Método para obter a lista de pessoas
+    public ArrayList<Pessoa> getPessoas() {
+        return pessoas;
     }
     
     // para marcar consulta.....

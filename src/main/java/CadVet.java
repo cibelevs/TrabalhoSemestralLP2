@@ -46,6 +46,15 @@ public class CadVet extends javax.swing.JFrame {
     }
     
     private void salvarVeterinario() {
+        java.util.List<javax.swing.JTextField> campos = java.util.Arrays.asList(
+    txtNome, txtCpf, txtTelefone, txtEmail,
+    txtEspecialidade, txtNumeroCfmv, txtPrecoConsulta
+    );
+
+    if (Utilitarios.validaCampos(campos)) {
+    return; // Se tiver algum campo vazio, já mostra aviso e cancela o processo
+    }
+
         String nome = txtNome.getText();
         String cpf = txtCpf.getText();
         String telefone = txtTelefone.getText();

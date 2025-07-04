@@ -7,14 +7,6 @@ package back_end;
 public class Funcionario extends Pessoa
 {
 
-    private String turnoTrabalho;
-    private String funcao;
-    
-    public Funcionario(String nome, String cpf, String email, String telefone, String turnoTrabalho,String funcao)
-    {
-        super(nome, cpf, email, telefone);
-        this.turnoTrabalho = turnoTrabalho;
-        this.funcao=funcao;
 
     private String turnoTrabalho, Funcao;
 
@@ -51,15 +43,7 @@ public class Funcionario extends Pessoa
   }
     
     
-    
-    public String getFuncao (){
-        
-        return funcao;
-    }
-    
-    public void setFuncao (String funcao){
-        this.funcao=funcao;
-    }
+ 
     
     
 }

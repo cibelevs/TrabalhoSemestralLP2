@@ -1,7 +1,6 @@
 
 import back_end.Animal;
 import back_end.DadosApp;
-import back_end.Pessoa;
 import back_end.Tutor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +17,23 @@ import javax.swing.JTextField;
  * @author T-GAMER
  */
 public class CadAnimal extends javax.swing.JFrame {
-
+    boolean update = false;
+    private Animal animalEditado = null;
+    
     /**
      * Creates new form CadAnimal
      */
-    
-
-    public CadAnimal() {
+     public CadAnimal() {
         initComponents(); // <-- CHAMADA NECESSÁRIA
     }
+     
+    public CadAnimal(boolean update) {
+        initComponents();
+        this.update = update;
+        TITULO.setText("Atualizar dados de Animal");
+    }
+
+   
 
 
     
@@ -40,7 +47,7 @@ public class CadAnimal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -56,8 +63,8 @@ public class CadAnimal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Animais");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Cadastro de Animais");
 
         jLabel2.setText("Nome do Animal:");
 
@@ -113,7 +120,7 @@ public class CadAnimal extends javax.swing.JFrame {
                 .addContainerGap(96, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -127,7 +134,7 @@ public class CadAnimal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(TITULO)
                     .addComponent(Sair))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -169,37 +176,59 @@ public class CadAnimal extends javax.swing.JFrame {
     if (Utilitarios.validaCampos(campos)) {
         return;
     }
+        if(!update){
+            String cpf = campos.get(4).getText();
+            Tutor tutor = DadosApp.clinica.getTutores(cpf);
 
-    String cpf = campos.get(4).getText();
-    Tutor tutor = DadosApp.clinica.getTutores(cpf);
+            if (tutor == null) {
+                JOptionPane.showMessageDialog(null, "Tutor do animal não encontrado!", "Tutor não encontrado!", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-    if (tutor == null) {
-        JOptionPane.showMessageDialog(null, "Tutor do animal não encontrado!", "Tutor não encontrado!", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+            Animal newAnimal = new Animal(
+                campos.get(0).getText(), 
+                campos.get(1).getText(), 
+                campos.get(2).getText(), 
+                tutor,
+                new ArrayList<>()      
+            );
 
-    Animal newAnimal = new Animal(
-        campos.get(0).getText(), 
-        campos.get(1).getText(), 
-        campos.get(2).getText(), 
-        tutor,
-        new ArrayList<>()      
-    );
+            tutor.getAnimais().add(newAnimal);
+            JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 
-    tutor.getAnimais().add(newAnimal);
-    JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-    this.dispose();
+        }
+        else {   
+                modificarDados(animalEditado);
+        }
+        
+        
+        
+        this.dispose();
 
     }//GEN-LAST:event_AdicionarActionPerformed
 
-    
-    public void inserirDados(Animal a){
-        txtNome.setText(a.getNome());
-        txtRaca.setText(a.getRaca());
-        txtDataNascimento.setText(a.getDataNascimento());
-        txtNomeTutor.setText(a.getTutor().getNome());
-        txtCpfTutor.setText(a.getTutor().getCpf());
+    public void modificarDados(Animal an){
+        an.setNome(txtNome.getText());
+        an.setRaca(txtRaca.getText());
+        an.setDataNascimento(txtDataNascimento.getText());
+
+        JOptionPane.showMessageDialog(null, "Dados do animal atualizados com sucesso!", "Atualização", JOptionPane.INFORMATION_MESSAGE);
     }
+
+ 
+    
+   public void inserirDados(Animal an) {
+        this.animalEditado = an;
+        txtNome.setText(an.getNome());
+        txtRaca.setText(an.getRaca());
+        txtDataNascimento.setText(an.getDataNascimento());
+        txtNomeTutor.setText(an.getTutor().getNome());
+        txtCpfTutor.setText(an.getTutor().getCpf());
+
+        txtNomeTutor.setEditable(false);
+        txtCpfTutor.setEditable(false);
+}
+
     
     
     /**
@@ -240,7 +269,7 @@ public class CadAnimal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Adicionar;
     private javax.swing.JButton Sair;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel TITULO;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

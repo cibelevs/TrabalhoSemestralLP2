@@ -65,10 +65,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fileMenu.setMnemonic('f');
         fileMenu.setText("Cadastro");
 
-        openMenuItem.setMnemonic('o');
         openMenuItem.setText("Veterinario");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +75,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(openMenuItem);
 
-        saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Funcionario");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +83,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(saveMenuItem);
 
-        saveAsMenuItem.setMnemonic('a');
         saveAsMenuItem.setText("Tutor");
         saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,7 +91,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(saveAsMenuItem);
 
-        exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Vacina");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +99,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(exitMenuItem);
 
-        CadastrarAnimal.setText("Cadastrar Animal");
+        CadastrarAnimal.setText("Animal");
         CadastrarAnimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadastrarAnimalActionPerformed(evt);
@@ -114,10 +109,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setMnemonic('e');
         editMenu.setText("Consultas");
 
-        cutMenuItem.setMnemonic('t');
         cutMenuItem.setText("Agendamentos");
         editMenu.add(cutMenuItem);
 

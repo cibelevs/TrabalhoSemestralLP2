@@ -48,7 +48,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadastrarAnimal">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastrar Animal"/>
+                <Property name="text" type="java.lang.String" value="Animal"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadastrarAnimalActionPerformed"/>

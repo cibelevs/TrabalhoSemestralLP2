@@ -280,21 +280,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Tutor:");
 
-        Tutor tutorEncontrado = null;
-
-        if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
-            for (Tutor t : DadosApp.clinica.getTutores()) {
-                if (t.getCpf().equals(cpfBusca)) {
-                    tutorEncontrado = t;
-                    break;
-                }
-            }
-        }
+        Tutor tutorEncontrado = buscarTutor(DadosApp.clinica.getTutores(), cpfBusca);
 
         if (tutorEncontrado != null) {
-            CadTutor telaCadastro = new CadTutor(); // passa tutor encontrado
-            telaCadastro.inserirDados(tutorEncontrado);
-            telaCadastro.setVisible(true);
+            CadTutor tela = new CadTutor(true); // modo edição
+            tela.inserirDados(tutorEncontrado); // esse tutor já foi encontrado antes
+            tela.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
         }

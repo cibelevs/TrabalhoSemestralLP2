@@ -16,6 +16,7 @@ import javax.swing.JTextField;
  * @author T-GAMER
  */
 public class CadTutor extends javax.swing.JFrame {
+    private boolean update = false;
     private Tutor tutorEditado = null;
     /**
      * Creates new form CadTutor
@@ -23,6 +24,15 @@ public class CadTutor extends javax.swing.JFrame {
     public CadTutor() {
         initComponents();
         setLocationRelativeTo(null);
+        btmExcluir.setVisible(false);
+    }
+    
+    public CadTutor(boolean update) {
+        initComponents();
+        this.update = update;
+        TITULO.setText("Atualizar dados de Tutor");
+        cadastrarTutor.setText("ATUALIZAR");
+        btmExcluir.setVisible(true); // agora mostra o botão
     }
 
     /**
@@ -34,7 +44,7 @@ public class CadTutor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -46,11 +56,12 @@ public class CadTutor extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
         cadastrarTutor = new javax.swing.JButton();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Tutores");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Cadastro de Tutores");
 
         jLabel2.setText("Nome:");
 
@@ -76,6 +87,13 @@ public class CadTutor extends javax.swing.JFrame {
             }
         });
 
+        btmExcluir.setText("EXCLUIR");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +102,7 @@ public class CadTutor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
+                        .addComponent(TITULO))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,19 +124,21 @@ public class CadTutor extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                     .addComponent(txtEndereco))))))
                 .addGap(132, 132, 132))
             .addGroup(layout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addComponent(cadastrarTutor)
+                .addGap(52, 52, 52)
+                .addComponent(btmExcluir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -140,7 +160,9 @@ public class CadTutor extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(cadastrarTutor)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cadastrarTutor)
+                    .addComponent(btmExcluir))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
 
@@ -154,11 +176,11 @@ public class CadTutor extends javax.swing.JFrame {
     private void cadastrarTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarTutorActionPerformed
 
         if(tutorEditado!= null){
-        tutorEditado.setNome(txtNome.getText());
-        tutorEditado.setEmail(txtEmail.getText());
-        tutorEditado.setTelefone(txtTelefone.getText());
-        tutorEditado.setEndereco(txtEndereco.getText());
-        JOptionPane.showMessageDialog(null, "Dados do tutor atualizados com sucesso!", "Atualização", JOptionPane.INFORMATION_MESSAGE);
+            tutorEditado.setNome(txtNome.getText());
+            tutorEditado.setEmail(txtEmail.getText());
+            tutorEditado.setTelefone(txtTelefone.getText());
+            tutorEditado.setEndereco(txtEndereco.getText());
+            JOptionPane.showMessageDialog(null, "Dados do tutor atualizados com sucesso!", "Atualização", JOptionPane.INFORMATION_MESSAGE);
         }
         else {
             List<JTextField> campos = List.of(txtNome, txtCpf, txtTelefone, txtEndereco,txtEmail);
@@ -172,6 +194,23 @@ public class CadTutor extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_cadastrarTutorActionPerformed
+
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(
+        this,
+        "Tem certeza que deseja excluir este Tutor?",
+        "Confirmar Exclusão",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            DadosApp.clinica.getTutores().remove(tutorEditado);
+            JOptionPane.showMessageDialog(this, "Tutor excluído com sucesso!");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btmExcluirActionPerformed
 
       public void inserirDados(Tutor t){
         tutorEditado = t;
@@ -219,8 +258,9 @@ public class CadTutor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TITULO;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.JButton cadastrarTutor;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

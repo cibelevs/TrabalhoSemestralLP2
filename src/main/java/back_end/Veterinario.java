@@ -48,7 +48,7 @@ public class Veterinario extends Pessoa
     
     @Override
     public String getDados(){
-        return "Especialidade: " + this.getEspecialidade() + "\n" +
+        return "\nEspecialidade: " + this.getEspecialidade() + "\n" +
                 "Numero CFMV: " + this.getNumeroCfmv() + "\n";      
     }
   

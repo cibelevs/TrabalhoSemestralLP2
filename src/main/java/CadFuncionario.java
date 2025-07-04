@@ -1,7 +1,10 @@
 
 import back_end.DadosApp;
 import back_end.Funcionario;
+import back_end.Tutor;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,14 +16,19 @@ import javax.swing.JOptionPane;
  * @author T-GAMER
  */
 public class CadFuncionario extends javax.swing.JFrame {
-
+    private boolean update = false;
     /**
      * Creates new form CadFuncionario
      */
     public CadFuncionario() {
         initComponents();
     }
-
+    
+    public CadFuncionario(boolean update) {
+        initComponents();
+        this.update = update;
+        TITULO.setText("ATUALIZAR FUNCIONÁRIO");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +39,7 @@ public class CadFuncionario extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -41,17 +49,16 @@ public class CadFuncionario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        turno_manha = new javax.swing.JRadioButton();
+        turno_tarde = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        ButtonSalvar = new javax.swing.JButton();
+        CadastrarFuncionario = new javax.swing.JButton();
         txtFuncao = new javax.swing.JTextField();
-        ButtonBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Funcionários");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Cadastro de Funcionários");
 
         jLabel2.setText("Nome:");
 
@@ -76,26 +83,26 @@ public class CadFuncionario extends javax.swing.JFrame {
 
         jLabel6.setText("Turno de Trabalho: ");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Manhã");
-        jRadioButton1.setName("botaomanha"); // NOI18N
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(turno_manha);
+        turno_manha.setText("Manhã");
+        turno_manha.setName("botaomanha"); // NOI18N
+        turno_manha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                turno_manhaActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Tarde");
-        jRadioButton2.setName("botaotarde"); // NOI18N
+        buttonGroup1.add(turno_tarde);
+        turno_tarde.setText("Tarde");
+        turno_tarde.setName("botaotarde"); // NOI18N
 
         jLabel7.setText("Função:");
 
-        ButtonSalvar.setText("SALVAR CADASTRO");
-        ButtonSalvar.setName("SalvarCadastro"); // NOI18N
-        ButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+        CadastrarFuncionario.setText("Cadastrar Funcionario");
+        CadastrarFuncionario.setName("SalvarCadastro"); // NOI18N
+        CadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonSalvarActionPerformed(evt);
+                CadastrarFuncionarioActionPerformed(evt);
             }
         });
 
@@ -106,61 +113,48 @@ public class CadFuncionario extends javax.swing.JFrame {
             }
         });
 
-        ButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ButtonBuscar.setText("Buscar");
-        ButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonBuscarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(121, 121, 121)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEmail)
-                                    .addComponent(txtTelefone)
-                                    .addComponent(txtCpf)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtFuncao)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(34, 34, 34)
-                                .addComponent(jRadioButton1)
-                                .addGap(75, 75, 75)
-                                .addComponent(jRadioButton2)
-                                .addGap(0, 79, Short.MAX_VALUE)))
-                        .addGap(168, 168, 168))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail)
+                            .addComponent(txtTelefone)
+                            .addComponent(txtCpf)
+                            .addComponent(txtNome)
+                            .addComponent(txtFuncao)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(ButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel6)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(turno_manha)
+                                .addGap(75, 75, 75)
+                                .addComponent(turno_tarde)))
+                        .addGap(0, 79, Short.MAX_VALUE)))
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -184,13 +178,11 @@ public class CadFuncionario extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(turno_manha)
+                    .addComponent(turno_tarde))
+                .addGap(38, 38, 38)
+                .addComponent(CadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,82 +192,67 @@ public class CadFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void turno_manhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turno_manhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_turno_manhaActionPerformed
 
-    private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
-       
-        // TODO add your handling code here:
-        
-        //Pegar dados dos campos
-    String nome = txtNome.getText();
-    String cpf = txtCpf.getText();
-    String telefone = txtTelefone.getText();
-    String email = txtEmail.getText();
-    String funcao = txtEmail.getText();
-    
-    
-    //Verificar turno
+    private void CadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFuncionarioActionPerformed
+                                                  
+    List<JTextField> campos = List.of(txtNome, txtCpf, txtTelefone, txtEmail, txtFuncao);
+    if (Utilitarios.validaCampos(campos)) {
+        return;
+    }
+
+
+    String nome = txtNome.getText().trim();
+    String cpf = txtCpf.getText().trim();
+    String telefone = txtTelefone.getText().trim();
+    String email = txtEmail.getText().trim();
+    String funcao = txtFuncao.getText().trim();
+
     String turno = "";
-    if (jRadioButton1.isSelected()) {
+    if (turno_manha.isSelected()) {
         turno = "Manhã";
-    } else if (jRadioButton2.isSelected()) {
+    } else if (turno_tarde.isSelected()) {
         turno = "Tarde";
+    } else {
+        JOptionPane.showMessageDialog(null, "Selecione um turno!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
     }
     
-    //  add funcionário
-    Funcionario novo = new Funcionario(nome, cpf, email, telefone, turno,funcao);
-    DadosApp.clinica.getFuncionarios().add(novo);
     
     
-    // Mostrar mensagem e limpar campos
-    JOptionPane.showMessageDialog(this, "Funcionário cadastrado!");
-    txtNome.setText("");
-    txtCpf.setText("");
-    txtTelefone.setText("");
-    txtEmail.setText("");
-    txtFuncao.setText("");
-   
-    buttonGroup1.clearSelection();
+    if (this.update) {
+        boolean funcionarioEncontrado = false;
+        for (Funcionario f : DadosApp.clinica.getFuncionarios()) {
+            if (f.getCpf().equalsIgnoreCase(cpf)) {
+              
+                f.setNome(nome);
+                f.setTelefone(telefone);
+                f.setEmail(email);
+                f.setFuncao(funcao);
+                f.setTurnoTrabalho(turno);
+                funcionarioEncontrado = true;
+                break;  
+            }
+        }
+        
+        if (!funcionarioEncontrado) {
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+    } else {
+        Funcionario novoFuncionario = new Funcionario(turno, funcao, nome, cpf, email, telefone);
+        DadosApp.clinica.getFuncionarios().add(novoFuncionario);
+    }
 
+    this.dispose();
 
-    }//GEN-LAST:event_ButtonSalvarActionPerformed
+    }//GEN-LAST:event_CadastrarFuncionarioActionPerformed
 
     private void txtFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFuncaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFuncaoActionPerformed
-
-    private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
-      
-    String cpf = txtCpf.getText();
-    
-    if (cpf.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Informe o CPF para buscar!");
-        return;
-    }
-
-    for (Funcionario f : DadosApp.clinica.getFuncionarios()) {
-        if (f.getCpf().equals(cpf)) {
-            // Preenche os campos com os dados encontrados
-            txtNome.setText(f.getNome());
-            txtTelefone.setText(f.getTelefone());
-            txtEmail.setText(f.getEmail());
-            txtFuncao.setText(f.getFuncao());
-            
-            if ("Manhã".equals(f.getTurnoTrabalho())) {
-                jRadioButton1.setSelected(true);
-            } else {
-                jRadioButton2.setSelected(true);
-            }
-            
-            return;
-        }
-    }
-    
-    JOptionPane.showMessageDialog(this, "Funcionário não encontrado!");
-
-    }//GEN-LAST:event_ButtonBuscarActionPerformed
 
  
     /**
@@ -314,18 +291,17 @@ public class CadFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonBuscar;
-    private javax.swing.JButton ButtonSalvar;
+    private javax.swing.JButton CadastrarFuncionario;
+    private javax.swing.JLabel TITULO;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton turno_manha;
+    private javax.swing.JRadioButton turno_tarde;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFuncao;

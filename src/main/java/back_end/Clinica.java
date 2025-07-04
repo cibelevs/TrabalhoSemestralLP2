@@ -38,6 +38,16 @@ public class Clinica {
     public void setVeterinarios(ArrayList<Veterinario> veterinarios) {
         this.veterinarios = veterinarios;
     }
+    
+    public boolean adicionarVeterinario(Veterinario vet) { //encapsulando lógica adição e verificando se já existe por Cpf ou Cfmv 
+    for (Veterinario v : veterinarios) {                   //DadosApp.clinica.adicionarVeterinario(vet);
+        if (v.getCpf().equals(vet.getCpf()) || v.getNumeroCfmv().equals(vet.getNumeroCfmv())) {
+            return false; // já existe
+        }
+    }
+    veterinarios.add(vet);
+    return true;
+    }
 
     public ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
@@ -167,5 +177,10 @@ public class Clinica {
         }
     }
 
+
+
+
+
+    
     
 }

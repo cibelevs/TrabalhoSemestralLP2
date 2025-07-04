@@ -8,6 +8,7 @@ public class Funcionario extends Pessoa
 {
 
 
+
     private String turnoTrabalho, Funcao;
 
     public Funcionario(String turnoTrabalho, String Funcao, String nome, String cpf, String email, String telefone) {
@@ -43,7 +44,6 @@ public class Funcionario extends Pessoa
   }
     
     
- 
     
     
 }

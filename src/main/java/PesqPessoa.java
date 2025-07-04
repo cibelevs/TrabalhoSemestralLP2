@@ -21,6 +21,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
      */
     public PesqPessoa() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -118,13 +119,14 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-          for (Pessoa p : DadosApp.clinica.getPessoas()) {
-        if (p.getNome().equalsIgnoreCase(txtNome.getText().trim()) &&
-            p.getCpf().equals(txtCpf.getText().trim())) {
-            imprimir(p);
-            return;
+ 
+        for (Pessoa p : DadosApp.clinica.listaAtual()) {
+            if (p.getNome().equals(txtNome.getText())){
+                imprimir(p);
+                return;
+            }
         }
-    }
+    
     JOptionPane.showMessageDialog(this, "Não foi possível encontrar essa pessoa.");
     limparTela();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -132,7 +134,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
     public void imprimir(Pessoa p) {
     JOptionPane.showMessageDialog(this, 
         """
-        Informações da Pessoa:
+        Informações:
         Nome: """ + p.getNome() + "\n" +
         "CPF: " + p.getCpf() + "\n" +
         "Telefone: " + p.getTelefone() +

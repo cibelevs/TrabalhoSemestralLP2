@@ -21,6 +21,9 @@ public class RegistroVacina {
         this.dataAplicacao = dataAplicacao;
         this.dataValidade = dataValidade;
     }
+    public RegistroVacina(){
+        
+    }
 
     public Vacina getVacina() {
         return vacina;

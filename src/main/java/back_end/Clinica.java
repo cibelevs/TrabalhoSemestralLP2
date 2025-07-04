@@ -60,6 +60,14 @@ public class Clinica {
     public ArrayList<Tutor> getTutores() {
         return tutores;
     }
+    public Tutor getTutores(String cpf) {
+        for(Tutor t: this.tutores){
+            if(t.getCpf().equalsIgnoreCase(cpf)){
+                return t;
+            }
+        }
+        return null;
+    }
 
     public void setTutores(ArrayList<Tutor> tutores) {
         this.tutores = tutores;

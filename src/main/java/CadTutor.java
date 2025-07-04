@@ -162,6 +162,15 @@ public class CadTutor extends javax.swing.JFrame {
     this.dispose();
     }//GEN-LAST:event_cadastrarTutorActionPerformed
 
+      public void inserirDados(Tutor t){
+        txtNome.setText(t.getNome());
+        txtCpf.setText(t.getCpf());
+        txtTelefone.setText(t.getTelefone());
+        txtEmail.setText(t.getEmail());
+        txtEndereco.setText(t.getEndereco());
+    }
+
+    
     /**
      * @param args the command line arguments
      */

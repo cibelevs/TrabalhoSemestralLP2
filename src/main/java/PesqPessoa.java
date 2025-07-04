@@ -126,7 +126,6 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
             }
         }
     
-
     JOptionPane.showMessageDialog(this, "Não foi possível encontrar essa pessoa.");
     limparTela();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -134,7 +133,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
     public void imprimir(Pessoa p) {
     JOptionPane.showMessageDialog(this, 
         """
-        Informações da Pessoa:
+        Informações:
         Nome: """ + p.getNome() + "\n" +
         "CPF: " + p.getCpf() + "\n" +
         "Telefone: " + p.getTelefone() +

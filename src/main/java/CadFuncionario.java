@@ -17,6 +17,7 @@ import javax.swing.JTextField;
  */
 public class CadFuncionario extends javax.swing.JFrame {
     private boolean update = false;
+    Funcionario funcEncontrado = null;
     /**
      * Creates new form CadFuncionario
      */
@@ -27,7 +28,7 @@ public class CadFuncionario extends javax.swing.JFrame {
     public CadFuncionario(boolean update) {
         initComponents();
         this.update = update;
-        TITULO.setText("ATUALIZAR FUNCIONÁRIO");
+        TITULO.setText("Atualizar dados de Funcionario");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -223,33 +224,43 @@ public class CadFuncionario extends javax.swing.JFrame {
     
     
     if (this.update) {
-        boolean funcionarioEncontrado = false;
-        for (Funcionario f : DadosApp.clinica.getFuncionarios()) {
-            if (f.getCpf().equalsIgnoreCase(cpf)) {
-              
-                f.setNome(nome);
-                f.setTelefone(telefone);
-                f.setEmail(email);
-                f.setFuncao(funcao);
-                f.setTurnoTrabalho(turno);
-                funcionarioEncontrado = true;
-                break;  
-            }
-        }
-        
-        if (!funcionarioEncontrado) {
-            JOptionPane.showMessageDialog(null, "Funcionário não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; 
-        }
+        funcEncontrado.setNome(nome);
+        funcEncontrado.setCpf(cpf);
+        funcEncontrado.setTelefone(telefone);
+        funcEncontrado.setEmail(email);
+        funcEncontrado.setFuncao(funcao);
+        funcEncontrado.setTurnoTrabalho(turno);
+        JOptionPane.showMessageDialog(this, "Dados do Funcionário atualizados com sucesso!", "Atualização", JOptionPane.INFORMATION_MESSAGE);
+
     } else {
         Funcionario novoFuncionario = new Funcionario(turno, funcao, nome, cpf, email, telefone);
         DadosApp.clinica.getFuncionarios().add(novoFuncionario);
+        JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     this.dispose();
 
     }//GEN-LAST:event_CadastrarFuncionarioActionPerformed
 
+    
+    
+    public void inserirDados(Funcionario f){
+        txtNome.setText(f.getNome());
+        txtCpf.setText(f.getCpf());
+        txtTelefone.setText(f.getTelefone());
+        txtEmail.setText(f.getEmail());
+        txtFuncao.setText(f.getFuncao());
+        if (f.getTurnoTrabalho().equalsIgnoreCase("Manhã")) {
+            turno_manha.setSelected(true);
+        } else if (f.getTurnoTrabalho().equalsIgnoreCase("Tarde")) {
+            turno_tarde.setSelected(true);
+        }
+    }
+    
+    
+    
+    
     private void txtFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFuncaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFuncaoActionPerformed

@@ -13,6 +13,24 @@ import back_end.DadosApp;
 
 public class CadVet extends javax.swing.JFrame {
 
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
+
+    public Veterinario getVeterinarioEditado() {
+        return veterinarioEditado;
+    }
+
+    public void setVeterinarioEditado(Veterinario veterinarioEditado) {
+        this.veterinarioEditado = veterinarioEditado;
+    }
+
+    private boolean update = false;
+    private Veterinario veterinarioEditado = null;
     /**
      * Creates new form CadVet
      */
@@ -27,38 +45,55 @@ public class CadVet extends javax.swing.JFrame {
     }
     
     private void salvarVeterinario() {
-    String nome = txtNome.getText();
-    String cpf = txtCpf.getText();
-    String telefone = txtTelefone.getText();
-    String email = txtEmail.getText();
-    String especialidade = txtEspecialidade.getText();
-    String numeroCfmv = txtNumeroCfmv.getText();
-    
-    double precoConsulta = 0.0;
-    try {
-        precoConsulta = Double.parseDouble(txtPrecoConsulta.getText());
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Preço da consulta inválido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
+        String nome = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String telefone = txtTelefone.getText();
+        String email = txtEmail.getText();
+        String especialidade = txtEspecialidade.getText();
+        String numeroCfmv = txtNumeroCfmv.getText();
+
+        double precoConsulta = 0.0;
+        try {
+            precoConsulta = Double.parseDouble(txtPrecoConsulta.getText());
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Preço da consulta inválido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        
+        if (!update) {
+            Veterinario vet = new Veterinario(nome, cpf, email, telefone, especialidade, numeroCfmv, precoConsulta);
+            DadosApp.clinica.adicionarVeterinario(vet);
+            javax.swing.JOptionPane.showMessageDialog(this, "Veterinário cadastrado com sucesso:\n" + vet.getNome(), "Cadastro", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            TITULO.setText("Atualizar dados de Veterinario");
+            // Atualiza os dados do veterinário já existente
+            veterinarioEditado.setNome(nome);
+            veterinarioEditado.setCpf(cpf);
+            veterinarioEditado.setTelefone(telefone);
+            veterinarioEditado.setEmail(email);
+            veterinarioEditado.setEspecialidade(especialidade);
+            veterinarioEditado.setNumeroCfmv(numeroCfmv);
+            veterinarioEditado.setPrecoConsulta(precoConsulta);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Veterinário atualizado com sucesso:\n" + veterinarioEditado.getNome(), "Atualização", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        this.dispose();
     }
 
-    // Cria o veterinário
-    Veterinario vet = new Veterinario(nome, cpf, email, telefone, especialidade, numeroCfmv, precoConsulta);
-
-    // Salva no "banco de dados" da clínica
-    back_end.DadosApp.clinica.adicionarVeterinario(vet);
     
-    System.out.println("Veterinários cadastrados:"); //teste de mesa
-
-    for (Veterinario v : DadosApp.clinica.getVeterinarios()) { //teste de mesa
-    System.out.println("- " + v.getNome() + " | " + v.getEspecialidade());
-
-    // Mensagem de sucesso
-    javax.swing.JOptionPane.showMessageDialog(this, "Veterinário cadastrado com sucesso:\n" + vet.getNome());
-
-}
+    public void inserirDados(Veterinario v) {
+        txtNome.setText(v.getNome());
+        txtCpf.setText(v.getCpf());
+        txtTelefone.setText(v.getTelefone());
+        txtEmail.setText(v.getEmail());
+        txtEspecialidade.setText(v.getEspecialidade());
+        txtNumeroCfmv.setText(v.getNumeroCfmv());
+        txtPrecoConsulta.setText(String.format("%.2f", v.getPrecoConsulta())); 
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,7 +103,7 @@ public class CadVet extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -87,8 +122,8 @@ public class CadVet extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Veterinários");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Cadastro de Veterinários");
 
         jLabel2.setText("Nome:");
 
@@ -129,7 +164,7 @@ public class CadVet extends javax.swing.JFrame {
                             .addComponent(txtTelefone)
                             .addComponent(txtCpf)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(TITULO)
                         .addGap(0, 112, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +196,7 @@ public class CadVet extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -238,8 +273,8 @@ public class CadVet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TITULO;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

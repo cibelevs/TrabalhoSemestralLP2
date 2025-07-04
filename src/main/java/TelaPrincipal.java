@@ -1,6 +1,7 @@
 
 import back_end.Animal;
 import back_end.DadosApp;
+import back_end.Funcionario;
 import back_end.Tutor;
 import back_end.Veterinario;
 import java.util.ArrayList;
@@ -62,14 +63,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         atualizarFuncionario = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         pesquisaPessoa = new javax.swing.JMenuItem();
         pesquisaAnimal = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        fileMenu.setMnemonic('f');
         fileMenu.setText("Cadastro");
 
+        openMenuItem.setMnemonic('o');
         openMenuItem.setText("Veterinario");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +82,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(openMenuItem);
 
+        saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Funcionario");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +91,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(saveMenuItem);
 
+        saveAsMenuItem.setMnemonic('a');
         saveAsMenuItem.setText("Tutor");
         saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +100,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(saveAsMenuItem);
 
+        exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Vacina");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +119,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
+        editMenu.setMnemonic('e');
         editMenu.setText("Consultas");
 
+        cutMenuItem.setMnemonic('t');
         cutMenuItem.setText("Agendamentos");
         editMenu.add(cutMenuItem);
 
@@ -150,6 +159,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Atualizar Veterinario");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
         menuBar.add(jMenu1);
 
@@ -285,9 +302,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void atualizarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarFuncionarioActionPerformed
         // TODO add your handling code here:
+        String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Funcionario:");
+        Funcionario funcionarioSelecionado = buscarFuncionario(DadosApp.clinica.getFuncionarios(), cpfBusca);
+        
+        if(funcionarioSelecionado != null){
+            CadFuncionario tela = new CadFuncionario(true);
+            tela.funcEncontrado = funcionarioSelecionado;
+            tela.inserirDados(funcionarioSelecionado);
+            tela.setVisible(true);
             
-            CadFuncionario cadFunc = new CadFuncionario(true);
-            cadFunc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+            
         
     }//GEN-LAST:event_atualizarFuncionarioActionPerformed
 
@@ -310,13 +339,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
         } else {
-            JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
+            JOptionPane.showMessageDialog(null, "Tutor não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Veterinario:");
+
+        Veterinario vetEncontrado = buscarVeterinario(DadosApp.clinica.getVeterinarios(), cpfBusca);
+        if(vetEncontrado != null){
+            CadVet tela = new CadVet(); // ou new CadVet(true)
+            tela.setUpdate(true);
+            tela.setVeterinarioEditado(vetEncontrado);
+            tela.inserirDados(vetEncontrado);
+            tela.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Veterinario não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    public Veterinario buscarVeterinario(ArrayList<Veterinario> veterinarios, String cpfBusca){
+        for(Veterinario v : veterinarios){
+            if(v.getCpf().equalsIgnoreCase(cpfBusca)){
+                return v;
+            }
+        }
+        return null;
+    }
+    
+    
+    
     public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
          if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
-            for (Tutor t : DadosApp.clinica.getTutores()) {
+            for (Tutor t : tutores) {
                 if (t.getCpf().equals(cpfBusca)) {
                     return t;
                 }
@@ -333,6 +390,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         return null;
     }
+    
+    
+    public Funcionario buscarFuncionario(ArrayList<Funcionario> funcionarios, String cpf){
+        for(Funcionario func: funcionarios){
+            if(func.getCpf().equalsIgnoreCase(cpf)){
+                return func;
+            }
+        }
+        return null;
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -382,6 +450,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;

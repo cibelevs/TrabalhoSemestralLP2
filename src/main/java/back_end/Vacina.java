@@ -16,11 +16,13 @@ public class Vacina
    private double preco;
    private LocalDate dataVencimento;
 
-    public Vacina(String nome, double preco, LocalDate dataVencimento) {
+    public Vacina(String nome, double preco, LocalDate dataVencimento ) {
         this.nome = nome;
         this.preco = preco;
         this.dataVencimento = dataVencimento;
     }
+
+
 
     public String getNome() {
         return nome;
@@ -46,4 +48,8 @@ public class Vacina
         this.dataVencimento = dataVencimento;
     }
    
+    @Override
+    public String toString() {
+        return nome + " - R$" + preco + " - Venc: " + dataVencimento;
+    }
 }

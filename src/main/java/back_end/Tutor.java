@@ -47,7 +47,6 @@ public class Tutor extends Pessoa
         sb.append("\nAnimais do Tutor:");
         for (Animal an : animais) {
             sb.append("\n - Nome: ").append(an.getNome());
-            // adicione outros dados do animal se quiser
         }
     }
 

@@ -11,7 +11,6 @@ import back_end.Animal;
  * @author T-GAMER
  */
 public class InfoAnimal extends javax.swing.JFrame {
-
     /**
      * Creates new form InfoAnimal
      */
@@ -42,7 +41,7 @@ public class InfoAnimal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel4.setText("Data de Nascimento:");
 
@@ -137,6 +136,13 @@ public class InfoAnimal extends javax.swing.JFrame {
         txtRaca.setText(animal.getRaca());
         txtDataNascimento.setText(animal.getDataNascimento());
         txtNomeTutor.setText(animal.getTutor().getNome());
+        
+        txtNome.setEditable(false);
+        txtRaca.setEditable(false);
+        txtDataNascimento.setEditable(false);
+        txtNomeTutor.setEditable(false);
+        
+        
     }
     
     

@@ -3,6 +3,7 @@ import back_end.Animal;
 import back_end.DadosApp;
 import back_end.Tutor;
 import back_end.Veterinario;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /*
@@ -227,6 +228,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void addAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAnimalActionPerformed
         // TODO add your handling code here:
+        String cpfTutor = JOptionPane.showInputDialog(this, "Digite o CPF do Tutor:");
+        String nomeAnimal = JOptionPane.showInputDialog(this, "Digite o Nome do Animal:");
+        
+        Tutor t = buscarTutor(DadosApp.clinica.getTutores(), cpfTutor);
+        if(t == null){
+                JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
+        } else{
+            Animal an = buscarAnimal(t.getAnimais(), nomeAnimal);
+            if(an == null){
+                JOptionPane.showMessageDialog(this, "Animal não encontrado.");
+            }
+            else {
+                InfoAnimal pesqAnimal;
+                pesqAnimal = new InfoAnimal();
+                pesqAnimal.imprimir(an);
+                pesqAnimal.setVisible(true);
+            }
+        }
+        
+       
+
         
       
     }//GEN-LAST:event_addAnimalActionPerformed
@@ -274,39 +296,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Tutor:");
         String nomeBusca = JOptionPane.showInputDialog(this, "Digite o Nome do Animal:");
 
-        Tutor tutorEncontrado = null;
-
-        if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
-            for (Tutor t : DadosApp.clinica.getTutores()) {
-                if (t.getCpf().equals(cpfBusca)) {
-                    tutorEncontrado = t;
-                    break;
-                }
-            }
-        }
+        Tutor tutorEncontrado = buscarTutor(DadosApp.clinica.getTutores(), cpfBusca);
 
         if (tutorEncontrado != null) {
-            boolean animalEncontrado = false;
-            for(Animal an: tutorEncontrado.getAnimais()){
-                if(an.getNome().equals(nomeBusca)){
-                    CadAnimal telaCadastro = new CadAnimal(); // passa tutor encontrado
-                    telaCadastro.inserirDados(an);
-                    telaCadastro.setVisible(true);
-                    animalEncontrado = true;
-                    break;
-                }
-            }
-            if (!animalEncontrado) {
+            Animal animalEncontrado  = buscarAnimal(tutorEncontrado.getAnimais(), nomeBusca);
+            if (animalEncontrado == null) {
                 JOptionPane.showMessageDialog(this, "Animal não encontrado.");
-            }   
+            }   else {
+                    CadAnimal telaCadastro = new CadAnimal(true); // passa tutor encontrado
+                    telaCadastro.inserirDados(animalEncontrado);
+                    telaCadastro.setVisible(true);
+            
+            }
             
         } else {
             JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
+         if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
+            for (Tutor t : DadosApp.clinica.getTutores()) {
+                if (t.getCpf().equals(cpfBusca)) {
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
     
-    
+    public Animal buscarAnimal (ArrayList<Animal> animaisDoTutor, String nomeAnimal){
+        for(Animal an: animaisDoTutor){
+                if(an.getNome().equals(nomeAnimal)){
+                    return an;
+                }
+        }
+        return null;
+    }
     
     /**
      * @param args the command line arguments

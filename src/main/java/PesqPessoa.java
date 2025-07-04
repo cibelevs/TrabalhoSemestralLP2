@@ -121,7 +121,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
         // TODO add your handling code here:
  
         for (Pessoa p : DadosApp.clinica.listaAtual()) {
-            if (p.getNome().equals(txtNome.getText())){
+            if (p.getNome().equalsIgnoreCase(txtNome.getText()) && p.getCpf().equalsIgnoreCase(txtCpf.getText())){
                 imprimir(p);
                 return;
             }

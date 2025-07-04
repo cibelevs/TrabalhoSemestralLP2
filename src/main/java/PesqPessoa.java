@@ -37,7 +37,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        PESQUISAR = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -49,10 +49,10 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
 
         jLabel5.setText("Nome:");
 
-        jButton1.setText("PESQUISAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        PESQUISAR.setText("PESQUISAR");
+        PESQUISAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                PESQUISARActionPerformed(evt);
             }
         });
 
@@ -66,7 +66,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PESQUISAR, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,14 +110,14 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(74, 74, 74)
-                .addComponent(jButton1)
+                .addComponent(PESQUISAR)
                 .addContainerGap(170, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void PESQUISARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PESQUISARActionPerformed
         // TODO add your handling code here:
  
         for (Pessoa p : DadosApp.clinica.listaAtual()) {
@@ -129,7 +129,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
     
     JOptionPane.showMessageDialog(this, "Não foi possível encontrar essa pessoa.");
     limparTela();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_PESQUISARActionPerformed
 
     public void imprimir(Pessoa p) {
     JOptionPane.showMessageDialog(this, 
@@ -199,7 +199,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton PESQUISAR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

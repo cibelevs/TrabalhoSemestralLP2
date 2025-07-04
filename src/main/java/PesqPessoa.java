@@ -21,6 +21,7 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
      */
     public PesqPessoa() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

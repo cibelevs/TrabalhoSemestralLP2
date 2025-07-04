@@ -1,6 +1,7 @@
 
 import back_end.DadosApp;
 import back_end.Tutor;
+import back_end.Veterinario;
 import javax.swing.JOptionPane;
 
 /*
@@ -20,6 +21,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         corrigirIcones();
+        setLocationRelativeTo(null);
         
     }
 
@@ -56,6 +58,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -135,6 +138,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem6);
+
+        jMenuItem8.setText("Cadastro Funcionario");
+        jMenu1.add(jMenuItem8);
 
         menuBar.add(jMenu1);
 
@@ -221,7 +227,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
         String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Tutor:");
-        
+
         Tutor tutorEncontrado = null;
 
         if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
@@ -232,14 +238,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         if (tutorEncontrado != null) {
-                CadTutor telaCadastro = new CadTutor(); // passa tutor encontrado
-                telaCadastro.inserirDados(tutorEncontrado);
-                telaCadastro.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
-            }
+            CadTutor telaCadastro = new CadTutor(); // passa tutor encontrado
+            telaCadastro.inserirDados(tutorEncontrado);
+            telaCadastro.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     
@@ -295,6 +301,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;

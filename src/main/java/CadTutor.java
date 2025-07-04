@@ -16,12 +16,13 @@ import javax.swing.JTextField;
  * @author T-GAMER
  */
 public class CadTutor extends javax.swing.JFrame {
-
+    private Tutor tutorEditado = null;
     /**
      * Creates new form CadTutor
      */
     public CadTutor() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -151,18 +152,29 @@ public class CadTutor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void cadastrarTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarTutorActionPerformed
-    List<JTextField> campos = List.of(txtNome, txtCpf, txtTelefone, txtEndereco,txtEmail);
-    if (Utilitarios.validaCampos(campos)) {
-        return;
-    }
-    Tutor tutor = new Tutor(txtNome.getText(),txtCpf.getText(),txtEmail.getText(),txtTelefone.getText(),txtEndereco.getText());
-    DadosApp.clinica.getTutores().add(tutor);
-    
-    JOptionPane.showMessageDialog(null, "Tutor cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-    this.dispose();
+
+        if(tutorEditado!= null){
+        tutorEditado.setNome(txtNome.getText());
+        tutorEditado.setEmail(txtEmail.getText());
+        tutorEditado.setTelefone(txtTelefone.getText());
+        tutorEditado.setEndereco(txtEndereco.getText());
+        JOptionPane.showMessageDialog(null, "Dados do tutor atualizados com sucesso!", "Atualização", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            List<JTextField> campos = List.of(txtNome, txtCpf, txtTelefone, txtEndereco,txtEmail);
+            if (Utilitarios.validaCampos(campos)) {
+                return;
+            }
+            Tutor tutor = new Tutor(txtNome.getText(),txtCpf.getText(),txtEmail.getText(),txtTelefone.getText(),txtEndereco.getText());
+            DadosApp.clinica.getTutores().add(tutor);
+
+            JOptionPane.showMessageDialog(null, "Tutor cadastrado com sucesso!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+        }
+        this.dispose();
     }//GEN-LAST:event_cadastrarTutorActionPerformed
 
       public void inserirDados(Tutor t){
+        tutorEditado = t;
         txtNome.setText(t.getNome());
         txtCpf.setText(t.getCpf());
         txtTelefone.setText(t.getTelefone());

@@ -58,15 +58,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadastrarAnimal = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        vacinar = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         atualizarFuncionario = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-
         atualizarVacina = new javax.swing.JMenuItem();
-
         jMenu2 = new javax.swing.JMenu();
         pesquisaPessoa = new javax.swing.JMenuItem();
         pesquisaAnimal = new javax.swing.JMenuItem();
@@ -130,8 +128,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cutMenuItem.setText("Agendamentos");
         editMenu.add(cutMenuItem);
 
-        jMenuItem1.setText("Vacinas");
-        editMenu.add(jMenuItem1);
+        vacinar.setText("Vacinas");
+        vacinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vacinarActionPerformed(evt);
+            }
+        });
+        editMenu.add(vacinar);
 
         jMenuItem4.setText("Consultas imediatas");
         editMenu.add(jMenuItem4);
@@ -164,7 +167,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-
         atualizarVacina.setText("Vacina");
         atualizarVacina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +174,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(atualizarVacina);
-
 
         menuBar.add(jMenu1);
 
@@ -414,6 +415,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_VacinasActionPerformed
 
+    private void vacinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vacinarActionPerformed
+        // TODO add your handling code here:
+        Vacinar vacinar = new Vacinar();
+        vacinar.setVisible(true);
+    }//GEN-LAST:event_vacinarActionPerformed
+
 
     public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
          if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
@@ -494,9 +501,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;
@@ -505,6 +510,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem pesquisaPessoa;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem vacinar;
     // End of variables declaration//GEN-END:variables
 
 }

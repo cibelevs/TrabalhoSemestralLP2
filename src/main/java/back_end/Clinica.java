@@ -85,8 +85,8 @@ public class Clinica {
         return vacinas;
     }
 
-    public void setVacinas(ArrayList<Vacina> vacinas) {
-        this.vacinas = vacinas;
+    public void setVacinas(Vacina vacina) {
+        this.vacinas.add(vacina);
     }
 
     public ArrayList<Consulta> getConsultas() {
@@ -187,20 +187,21 @@ public class Clinica {
         }
     }
     
-     public boolean adicionarVacina(Vacina vacina) {
-        for (Vacina v : vacinas) {
-            if (v.getNome().equalsIgnoreCase(vacina.getNome())) {
-                return false; // Vacina já existe
-            }
-        }
-        vacinas.add(vacina);
-        return true;
-    }
+   
+    
      
    
      
     
-    
+    public boolean vacinaExiste(String new_vacina){
+        for(Vacina vac:vacinas){
+            if(vac.getNome().equalsIgnoreCase(new_vacina)){
+                return true;
+            }
+            
+        }
+        return false;
+    }
 
 
     

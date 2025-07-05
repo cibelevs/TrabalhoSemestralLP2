@@ -1,10 +1,12 @@
 
 import back_end.DadosApp;
-import back_end.TabelaPrecoVacina;
 import back_end.Vacina;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
    
@@ -14,25 +16,30 @@ import javax.swing.JOptionPane;
  */
 public class CadVacina extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadVacina
-     */
-    TabelaPrecoVacina tabela = new TabelaPrecoVacina();
-    public CadVacina() {
+    private boolean update;
+    private Vacina vac;
+     public CadVacina() {
         initComponents();
-        carregarTiposVacina();
-         for (Vacina v : tabela.getTodasVacinas()) {
-    cbvacinas.addItem(v.getNome());
-            }
+        update = false;
+      
+        
+    }
+     
+    public CadVacina(boolean update, Vacina vac) {
+        initComponents();
+        
+        txtNome.setText(vac.getNome());
+        txtPreco.setText(Double.toString(vac.getPreco()));
+        txtVencimento.setText(vac.getDataVencimento().toString());
+        this.vac = vac;
+        this.update = update;
+        TITULO.setText("ATUALIZAR VACINA");
     }
     
-    private void carregarTiposVacina() {
-        cbvacinas.removeAllItems();
-        for (Vacina v : DadosApp.clinica.getVacinas()) {
-            cbvacinas.addItem(v.getNome());
-        }
-    }
-                                            
+    
+   
+
+    
                   
           
     
@@ -48,21 +55,19 @@ public class CadVacina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        cbvacinas = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
+        Cadastrar = new javax.swing.JButton();
         txtPreco = new javax.swing.JTextField();
         txtVencimento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Vacinas");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Cadastro de Vacinas");
 
         jLabel2.setText("Nome:");
 
@@ -77,21 +82,12 @@ public class CadVacina extends javax.swing.JFrame {
         jLabel4.setText("Preço:");
         jLabel4.setName("txtpreco"); // NOI18N
 
-        jButton1.setText("SALVAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Cadastrar.setText("CADASTRAR");
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CadastrarActionPerformed(evt);
             }
         });
-
-        cbvacinas.setName("cbvacinas"); // NOI18N
-        cbvacinas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbvacinasActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Vacinas");
 
         txtPreco.setName("txtpreco"); // NOI18N
         txtPreco.addActionListener(new java.awt.event.ActionListener() {
@@ -106,63 +102,54 @@ public class CadVacina extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPreco)
+                            .addComponent(txtVencimento)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(14, 63, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(59, 59, 59)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(176, 176, 176))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(165, 165, 165)
-                        .addComponent(jLabel1))
+                        .addComponent(TITULO))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbvacinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(23, 23, 23)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPreco))))))
-                .addGap(208, 208, 208))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(234, 234, 234)
+                        .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbvacinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(jButton1)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addGap(64, 64, 64)
+                .addComponent(Cadastrar)
+                .addContainerGap(172, Short.MAX_VALUE))
         );
-
-        cbvacinas.getAccessibleContext().setAccessibleName("cbvacinas");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -171,49 +158,52 @@ public class CadVacina extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void cbvacinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbvacinasActionPerformed
-        // TODO add your handling code here:
-       String nome = (String) cbvacinas.getSelectedItem(); // nome correto da variável
-    if (nome != null) {
-        TabelaPrecoVacina tabelaa = new TabelaPrecoVacina();
-        double preco = tabelaa.getPreco(nome);
-        txtPreco.setText(preco + "");
-    }
-
-
-    }//GEN-LAST:event_cbvacinasActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
       try {
-        String nome = (String) cbvacinas.getSelectedItem();
-        String vencimentoStr = txtVencimento.getText().trim();
-
-        if (nome == null || vencimentoStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Selecione uma vacina e preencha a data de vencimento.");
+        
+        List<JTextField> campos = List.of(txtNome, txtVencimento, txtPreco);
+        if (Utilitarios.validaCampos(campos)) {
             return;
         }
+          
+        
+        
+        
+        double preco = Double.parseDouble(txtPreco.getText());
+        LocalDate vencimento = LocalDate.parse(txtVencimento.getText());
+        String nome = txtNome.getText();
+        if(!update){
+            if (DadosApp.clinica.vacinaExiste(txtNome.getText())) {
+                JOptionPane.showMessageDialog(this, "Essa vacina já está cadastrada.");
+                return;
+            }
+            
+            Vacina nova_vacina = new Vacina(nome,preco,vencimento);    
+            DadosApp.clinica.setVacinas(nova_vacina);
+            this.dispose();
+           
+        }else{
+            this.vac.setNome(nome);
+            this.vac.setPreco(preco);
+            this.vac.setDataVencimento(vencimento);
+            JOptionPane.showMessageDialog(this, "Vacina Atualizada");
 
-        // Busca o preço da tabela (não pega mais do campo de texto!)
-        double preco = tabela.getPreco(nome);
-        LocalDate dataVencimento = LocalDate.parse(vencimentoStr); // formato yyyy-MM-dd
-
-        Vacina vacina = new Vacina(nome, preco,null);
-        vacina.setDataVencimento(dataVencimento);
-
-        if (DadosApp.clinica.adicionarVacina(vacina)) {
-            JOptionPane.showMessageDialog(this, "Vacina cadastrada com sucesso!");
-            this.dispose(); // Fecha a janela
-        } else {
-            JOptionPane.showMessageDialog(this, "Essa vacina já está cadastrada.");
+            this.dispose();
+          
+            
+            
+         
+            
         }
-
+        
     } catch (java.time.format.DateTimeParseException e) {
         JOptionPane.showMessageDialog(this, "Data inválida! Use o formato yyyy-MM-dd");
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
     }
+      
     
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CadastrarActionPerformed
 
     private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
         // TODO add your handling code here:
@@ -255,13 +245,11 @@ public class CadVacina extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbvacinas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton Cadastrar;
+    private javax.swing.JLabel TITULO;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtVencimento;

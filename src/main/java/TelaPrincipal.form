@@ -87,7 +87,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar Tutor "/>
+                <Property name="text" type="java.lang.String" value="Tutor "/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
@@ -95,7 +95,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="atualizarFuncionario">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar Funcionario"/>
+                <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizarFuncionarioActionPerformed"/>
@@ -103,18 +103,20 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar Animal"/>
+                <Property name="text" type="java.lang.String" value="Animal"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+
+            <MenuItem class="javax.swing.JMenuItem" name="atualizarVacina">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar Veterinario"/>
+                <Property name="text" type="java.lang.String" value="Vacina"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizarVacinaActionPerformed"/>
+
               </Events>
             </MenuItem>
           </SubComponents>
@@ -138,6 +140,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addAnimalActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="Vacinas">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Vacina"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VacinasActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

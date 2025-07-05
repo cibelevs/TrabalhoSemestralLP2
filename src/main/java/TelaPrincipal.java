@@ -59,7 +59,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
         vacinar = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         atualizarFuncionario = new javax.swing.JMenuItem();
@@ -122,10 +121,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuBar.add(fileMenu);
 
         editMenu.setMnemonic('e');
-        editMenu.setText("Consultas");
+        editMenu.setText("Atendimentos");
 
         cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Agendamentos");
+        cutMenuItem.setText("Consultas");
+        cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(cutMenuItem);
 
         vacinar.setText("Vacinas");
@@ -135,9 +139,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         editMenu.add(vacinar);
-
-        jMenuItem4.setText("Consultas imediatas");
-        editMenu.add(jMenuItem4);
 
         menuBar.add(editMenu);
 
@@ -421,6 +422,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         vacinar.setVisible(true);
     }//GEN-LAST:event_vacinarActionPerformed
 
+    private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
+        // TODO add your handling code here:
+        String[] opcoes = {
+            "Realizar agendamento de consulta", 
+            "Cadastrar uma consulta não marcada"                     
+        };
+
+        int opcao = JOptionPane.showOptionDialog(
+            this,
+            "Escolha uma opção:",
+            "Cadastrando uma consulta",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            opcoes,
+            opcoes[1] 
+        );
+        
+        if(opcao == 0){
+            CadAgendamento telaAgendamento = new CadAgendamento();
+            telaAgendamento.setVisible(true);
+        } else {
+            CadConsulta telaConsulta = new CadConsulta();
+            telaConsulta.setVisible(true);
+        }
+
+        
+    }//GEN-LAST:event_cutMenuItemActionPerformed
+
 
     public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
          if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
@@ -502,7 +532,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;

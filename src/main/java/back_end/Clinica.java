@@ -60,6 +60,7 @@ public class Clinica {
     public ArrayList<Tutor> getTutores() {
         return tutores;
     }
+    
     public Tutor getTutores(String cpf) {
         for(Tutor t: this.tutores){
             if(t.getCpf().equalsIgnoreCase(cpf)){
@@ -187,7 +188,24 @@ public class Clinica {
         }
     }
     
-   
+    
+        public boolean veterinarioDisponivel(Veterinario vet, LocalDateTime dataHora) {
+        if (!estaDentroDoHorarioAtendimento(dataHora.toLocalTime())) {
+            return false;
+        }
+
+        // Verifica se o veterinário já tem uma consulta marcada nesse horário
+        for (Consulta c : consultas) {
+            if (c.isConsultaMarcada() &&
+                c.getVeterinario().equals(vet) &&
+                c.getDataHora().equals(dataHora)) {
+                return false; 
+            }
+        }
+
+        return true; 
+    }
+
     
      
    

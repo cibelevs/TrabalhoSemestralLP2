@@ -8,7 +8,6 @@
  * @author asmita
  */
 import java.util.List;
-import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 

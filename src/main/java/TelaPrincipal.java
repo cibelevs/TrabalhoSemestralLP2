@@ -1,6 +1,7 @@
 
 import back_end.Animal;
 import back_end.DadosApp;
+import back_end.Funcionario;
 import back_end.Tutor;
 import back_end.Vacina;
 import back_end.Veterinario;
@@ -63,7 +64,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         atualizarFuncionario = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+
         atualizarVacina = new javax.swing.JMenuItem();
+
         jMenu2 = new javax.swing.JMenu();
         pesquisaPessoa = new javax.swing.JMenuItem();
         pesquisaAnimal = new javax.swing.JMenuItem();
@@ -161,6 +164,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+
         atualizarVacina.setText("Vacina");
         atualizarVacina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +172,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(atualizarVacina);
+
 
         menuBar.add(jMenu1);
 
@@ -290,21 +295,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Tutor:");
 
-        Tutor tutorEncontrado = null;
-
-        if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
-            for (Tutor t : DadosApp.clinica.getTutores()) {
-                if (t.getCpf().equals(cpfBusca)) {
-                    tutorEncontrado = t;
-                    break;
-                }
-            }
-        }
+        Tutor tutorEncontrado = buscarTutor(DadosApp.clinica.getTutores(), cpfBusca);
 
         if (tutorEncontrado != null) {
-            CadTutor telaCadastro = new CadTutor(); // passa tutor encontrado
-            telaCadastro.inserirDados(tutorEncontrado);
-            telaCadastro.setVisible(true);
+            CadTutor tela = new CadTutor(true); // modo edição
+            tela.inserirDados(tutorEncontrado); // esse tutor já foi encontrado antes
+            tela.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
         }
@@ -312,9 +308,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void atualizarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarFuncionarioActionPerformed
         // TODO add your handling code here:
+        String cpfBusca = JOptionPane.showInputDialog(this, "Digite o CPF do Funcionario:");
+        Funcionario funcionarioSelecionado = buscarFuncionario(DadosApp.clinica.getFuncionarios(), cpfBusca);
+        
+        if(funcionarioSelecionado != null){
+            CadFuncionario tela = new CadFuncionario(true);
+            tela.funcEncontrado = funcionarioSelecionado;
+            tela.inserirDados(funcionarioSelecionado);
+            tela.setVisible(true);
             
-            CadFuncionario cadFunc = new CadFuncionario(true);
-            cadFunc.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+            
         
     }//GEN-LAST:event_atualizarFuncionarioActionPerformed
 
@@ -337,7 +345,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             
         } else {
-            JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
+            JOptionPane.showMessageDialog(null, "Tutor não encontrado para atualização!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -406,9 +414,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_VacinasActionPerformed
 
+
     public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
          if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
-            for (Tutor t : DadosApp.clinica.getTutores()) {
+            for (Tutor t : tutores) {
                 if (t.getCpf().equals(cpfBusca)) {
                     return t;
                 }
@@ -425,6 +434,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         return null;
     }
+    
+    
+    public Funcionario buscarFuncionario(ArrayList<Funcionario> funcionarios, String cpf){
+        for(Funcionario func: funcionarios){
+            if(func.getCpf().equalsIgnoreCase(cpf)){
+                return func;
+            }
+        }
+        return null;
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -476,6 +496,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;

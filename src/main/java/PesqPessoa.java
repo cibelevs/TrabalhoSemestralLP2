@@ -3,7 +3,9 @@ import back_end.DadosApp;
 import back_end.Pessoa;
 import back_end.Print;
 import back_end.Tutor;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -119,7 +121,13 @@ public class PesqPessoa extends javax.swing.JFrame implements Print {
 
     private void PESQUISARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PESQUISARActionPerformed
         // TODO add your handling code here:
- 
+        
+        List<JTextField> campos = List.of(txtNome, txtCpf);
+
+        if (Utilitarios.validaCampos(campos)) {
+            return;
+        }
+
         for (Pessoa p : DadosApp.clinica.listaAtual()) {
             if (p.getNome().equalsIgnoreCase(txtNome.getText()) && p.getCpf().equalsIgnoreCase(txtCpf.getText())){
                 imprimir(p);

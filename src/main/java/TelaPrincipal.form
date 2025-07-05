@@ -109,12 +109,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
+
             <MenuItem class="javax.swing.JMenuItem" name="atualizarVacina">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vacina"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizarVacinaActionPerformed"/>
+
               </Events>
             </MenuItem>
           </SubComponents>

@@ -10,16 +10,35 @@
 
 import back_end.Veterinario;
 import back_end.DadosApp;
+import javax.swing.JOptionPane;
 
 public class CadVet extends javax.swing.JFrame {
 
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
+
+    public Veterinario getVeterinarioEditado() {
+        return veterinarioEditado;
+    }
+
+    public void setVeterinarioEditado(Veterinario veterinarioEditado) {
+        this.veterinarioEditado = veterinarioEditado;
+    }
+
+    private boolean update = false;
+    private Veterinario veterinarioEditado = null;
     /**
      * Creates new form CadVet
      */
     public CadVet() {
         initComponents();
-        
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btmExcluir.setVisible(false); 
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarVeterinario();
             }
@@ -27,38 +46,67 @@ public class CadVet extends javax.swing.JFrame {
     }
     
     private void salvarVeterinario() {
-    String nome = txtNome.getText();
-    String cpf = txtCpf.getText();
-    String telefone = txtTelefone.getText();
-    String email = txtEmail.getText();
-    String especialidade = txtEspecialidade.getText();
-    String numeroCfmv = txtNumeroCfmv.getText();
-    
-    double precoConsulta = 0.0;
-    try {
-        precoConsulta = Double.parseDouble(txtPrecoConsulta.getText());
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Preço da consulta inválido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
+        java.util.List<javax.swing.JTextField> campos = java.util.Arrays.asList(
+    txtNome, txtCpf, txtTelefone, txtEmail,
+    txtEspecialidade, txtNumeroCfmv, txtPrecoConsulta
+    );
+
+    if (Utilitarios.validaCampos(campos)) {
+    return; // Se tiver algum campo vazio, já mostra aviso e cancela o processo
     }
 
-    // Cria o veterinário
-    Veterinario vet = new Veterinario(nome, cpf, email, telefone, especialidade, numeroCfmv, precoConsulta);
+        String nome = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String telefone = txtTelefone.getText();
+        String email = txtEmail.getText();
+        String especialidade = txtEspecialidade.getText();
+        String numeroCfmv = txtNumeroCfmv.getText();
 
-    // Salva no "banco de dados" da clínica
-    back_end.DadosApp.clinica.adicionarVeterinario(vet);
-    
-    System.out.println("Veterinários cadastrados:"); //teste de mesa
+        double precoConsulta = 0.0;
+        try {
+            precoConsulta = Double.parseDouble(txtPrecoConsulta.getText());
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Preço da consulta inválido!", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    for (Veterinario v : DadosApp.clinica.getVeterinarios()) { //teste de mesa
-    System.out.println("- " + v.getNome() + " | " + v.getEspecialidade());
+        
+        if (!update) {
+            Veterinario vet = new Veterinario(nome, cpf, email, telefone, especialidade, numeroCfmv, precoConsulta);
+            DadosApp.clinica.adicionarVeterinario(vet);
+            javax.swing.JOptionPane.showMessageDialog(this, "Veterinário cadastrado com sucesso:\n" + vet.getNome(), "Cadastro", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            TITULO.setText("Atualizar dados de Veterinario");
+            // Atualiza os dados do veterinário já existente
+            veterinarioEditado.setNome(nome);
+            veterinarioEditado.setCpf(cpf);
+            veterinarioEditado.setTelefone(telefone);
+            veterinarioEditado.setEmail(email);
+            veterinarioEditado.setEspecialidade(especialidade);
+            veterinarioEditado.setNumeroCfmv(numeroCfmv);
+            veterinarioEditado.setPrecoConsulta(precoConsulta);
 
-    // Mensagem de sucesso
-    javax.swing.JOptionPane.showMessageDialog(this, "Veterinário cadastrado com sucesso:\n" + vet.getNome());
-
-}
+            javax.swing.JOptionPane.showMessageDialog(this, "Veterinário atualizado com sucesso:\n" + veterinarioEditado.getNome(), "Atualização", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        this.dispose();
     }
 
+    
+    public void inserirDados(Veterinario v) {
+        txtNome.setText(v.getNome());
+        txtCpf.setText(v.getCpf());
+        txtTelefone.setText(v.getTelefone());
+        txtEmail.setText(v.getEmail());
+        txtEspecialidade.setText(v.getEspecialidade());
+        txtNumeroCfmv.setText(v.getNumeroCfmv());
+        txtPrecoConsulta.setText(String.format("%.2f", v.getPrecoConsulta())); 
+        
+        btmExcluir.setVisible(true); 
+        Cadastrar.setText("ATUALIZAR");
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,7 +116,7 @@ public class CadVet extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -83,12 +131,13 @@ public class CadVet extends javax.swing.JFrame {
         txtEspecialidade = new javax.swing.JTextField();
         txtNumeroCfmv = new javax.swing.JTextField();
         txtPrecoConsulta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Cadastrar = new javax.swing.JButton();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Veterinários");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Cadastro de Veterinários");
 
         jLabel2.setText("Nome:");
 
@@ -111,7 +160,14 @@ public class CadVet extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("SALVAR CADASTRO");
+        Cadastrar.setText("CADASTRAR");
+
+        btmExcluir.setText("EXCLUIR");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +185,7 @@ public class CadVet extends javax.swing.JFrame {
                             .addComponent(txtTelefone)
                             .addComponent(txtCpf)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(TITULO)
                         .addGap(0, 112, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,14 +210,16 @@ public class CadVet extends javax.swing.JFrame {
                 .addGap(120, 120, 120))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -191,7 +249,9 @@ public class CadVet extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtPrecoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Cadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btmExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(40, 40, 40))
         );
 
@@ -201,6 +261,23 @@ public class CadVet extends javax.swing.JFrame {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(
+        this,
+        "Tem certeza que deseja excluir este Veterinario?",
+        "Confirmar Exclusão",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            DadosApp.clinica.getVeterinarios().remove( veterinarioEditado);
+            JOptionPane.showMessageDialog(this, "Veterinario excluído com sucesso!");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btmExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,8 +315,9 @@ public class CadVet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton Cadastrar;
+    private javax.swing.JLabel TITULO;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

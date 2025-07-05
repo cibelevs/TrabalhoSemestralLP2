@@ -68,10 +68,13 @@
                 <Property name="text" type="java.lang.String" value="Agendamentos"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="vacinar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vacinas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vacinarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
@@ -109,14 +112,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
-
             <MenuItem class="javax.swing.JMenuItem" name="atualizarVacina">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vacina"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizarVacinaActionPerformed"/>
-
               </Events>
             </MenuItem>
           </SubComponents>

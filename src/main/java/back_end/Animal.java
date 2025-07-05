@@ -4,6 +4,7 @@
  */
 package back_end;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Animal 
@@ -61,6 +62,10 @@ public class Animal
 
     public void setVacinasTomadas(ArrayList<RegistroVacina> vacinasTomadas) {
         this.vacinasTomadas = vacinasTomadas;
+    }
+    public void adicionarVacina(Vacina vacina,LocalDate dataAplicacao, LocalDate vencimento){
+        RegistroVacina novoRegistro = new RegistroVacina(vacina, dataAplicacao, vencimento);
+        this.vacinasTomadas.add(novoRegistro);
     }
 
     

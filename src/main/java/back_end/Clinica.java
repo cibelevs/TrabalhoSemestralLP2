@@ -191,7 +191,15 @@ public class Clinica {
     
      
    
-     
+    public Vacina getVacina(String vacina){
+        for(Vacina vac: this.vacinas){
+            if(vac.getNome().equalsIgnoreCase(vacina)){
+                return vac;
+            }
+        }
+        return null;
+        
+    }
     
     public boolean vacinaExiste(String new_vacina){
         for(Vacina vac:vacinas){

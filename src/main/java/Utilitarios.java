@@ -22,5 +22,11 @@ public class Utilitarios {
         }
         return false; 
     }
+    
+    public static void limparCampos(List<JTextField> campos) {
+        for (JTextField campo : campos) {
+               campo.setText("");
+        }
+    }
 }
 

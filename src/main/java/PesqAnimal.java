@@ -20,6 +20,7 @@ public class PesqAnimal extends javax.swing.JFrame {
      */
     public PesqAnimal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

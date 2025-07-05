@@ -21,13 +21,13 @@ public class CadVacina extends javax.swing.JFrame {
      public CadVacina() {
         initComponents();
         update = false;
-      
-        
+        setLocationRelativeTo(null);
+ 
     }
      
     public CadVacina(boolean update, Vacina vac) {
         initComponents();
-        
+        setLocationRelativeTo(null);
         txtNome.setText(vac.getNome());
         txtPreco.setText(Double.toString(vac.getPreco()));
         txtVencimento.setText(vac.getDataVencimento().toString());
@@ -102,23 +102,6 @@ public class CadVacina extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPreco)
-                            .addComponent(txtVencimento)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(14, 63, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(59, 59, 59)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(176, 176, 176))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -128,6 +111,22 @@ public class CadVacina extends javax.swing.JFrame {
                         .addGap(234, 234, 234)
                         .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPreco)
+                            .addComponent(txtVencimento))
+                        .addGap(176, 176, 176))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +179,7 @@ public class CadVacina extends javax.swing.JFrame {
             
             Vacina nova_vacina = new Vacina(nome,preco,vencimento);    
             DadosApp.clinica.setVacinas(nova_vacina);
+            JOptionPane.showMessageDialog(this, "Vacina cadastrada com suceso!");
             this.dispose();
            
         }else{

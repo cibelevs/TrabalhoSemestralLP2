@@ -1,5 +1,16 @@
 
 import back_end.Animal;
+import back_end.DadosApp;
+import back_end.RegistroVacina;
+import back_end.Tutor;
+import back_end.Vacina;
+import java.awt.Dimension;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,6 +27,7 @@ public class InfoAnimal extends javax.swing.JFrame {
      */
     public InfoAnimal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -49,7 +61,12 @@ public class InfoAnimal extends javax.swing.JFrame {
 
         jButton1.setText("EMITIR PRONTUARIO");
 
-        BotaoVacina.setText("EMITIR CARTÃO DE VACINA");
+        BotaoVacina.setText("EMITIR INFORMAÇÕES DE VACINA");
+        BotaoVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoVacinaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         jLabel1.setText("Campo de Informações de um Animal");
@@ -86,9 +103,9 @@ public class InfoAnimal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtNomeTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(43, 43, 43)
                         .addComponent(BotaoVacina)
-                        .addGap(71, 71, 71)
+                        .addGap(49, 49, 49)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
@@ -96,7 +113,7 @@ public class InfoAnimal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,6 +147,117 @@ public class InfoAnimal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BotaoVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVacinaActionPerformed
+        // TODO add your handling code here:
+        String[] opcoes = {
+            "Emitir vacinas que estão para vencer no mês",
+            "Emitir cartão de vacina"
+        };
+
+        int opcao = JOptionPane.showOptionDialog(
+            this,
+            "Escolha uma opção:",
+            "Emitindo registro de vacinas",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            opcoes,
+            opcoes[1]
+        );
+
+
+        if(opcao == 0){
+            //emitir vacinas que estao para vencer no mes
+            StringBuilder relatorio = new StringBuilder();
+            LocalDate hoje = LocalDate.now();
+
+            for (Tutor tutor : DadosApp.clinica.getTutores()) {
+                boolean tutorTemVacinasVencendo = false;
+
+                for (Animal animal : tutor.getAnimais()) {
+                    List<RegistroVacina> vacinasVencendo = animal.getVacinasTomadas().stream()
+                        .filter(v -> v.getDataValidade().getMonth() == hoje.getMonth() &&
+                                     v.getDataValidade().getYear() == hoje.getYear())
+                        .collect(Collectors.toList());
+
+                    if (!vacinasVencendo.isEmpty()) {
+                        if (!tutorTemVacinasVencendo) {
+                            relatorio.append("Tutor: ").append(tutor.getNome()).append("\n - CPF: ").append(tutor.getCpf()).append("\n");
+                            tutorTemVacinasVencendo = true;
+                        }
+
+                        relatorio.append("  Nome do Animal: ").append(animal.getNome()).append("\n");
+                        
+                        for (RegistroVacina v : vacinasVencendo) {
+                            relatorio.append("    Vacina: ").append(v.getVacina().getNome())
+                                     .append(" - Vencimento: ").append(v.getVacina().getNome()).append("\n");
+                        }
+                    }
+                }
+            }
+
+            if (relatorio.length() == 0) {
+                JOptionPane.showMessageDialog(this, "Nenhuma vacina vence neste mês.");
+            } else {
+                JTextArea textArea = new JTextArea(relatorio.toString());
+                textArea.setEditable(false);
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                scrollPane.setPreferredSize(new Dimension(500, 400));
+
+                JOptionPane.showMessageDialog(this, scrollPane, "Vacinas para vencer neste mês", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            
+        } else {
+            if(opcao == 1){
+                StringBuilder cartao = new StringBuilder();
+                
+                for (Tutor tutor : DadosApp.clinica.getTutores()) {
+                    for (Animal animal : tutor.getAnimais()) {
+                        List<RegistroVacina> registros = animal.getVacinasTomadas();
+
+                        if (registros.isEmpty()) {
+                            continue;
+                        }
+
+                        cartao.append("Tutor: ").append(tutor.getNome())
+                              .append(" (CPF: ").append(tutor.getCpf()).append(")\n");
+                        cartao.append("Animal: ").append(animal.getNome()).append("\n");
+
+                        for (RegistroVacina registro : registros) {
+                            cartao.append("  - Vacina: ").append(registro.getVacina().getNome()).append("\n")
+                                  .append("    Aplicação: ").append(registro.getDataAplicacao()).append("\n")
+                                  .append("    Vencimento: ").append(registro.getDataValidade()).append("\n");
+                        }
+
+                        cartao.append("\n");
+                    }
+                }
+
+                if (cartao.length() == 0) {
+                    JOptionPane.showMessageDialog(this, "Nenhuma vacina registrada.");
+                } else {
+                    JTextArea textArea = new JTextArea(cartao.toString());
+                    textArea.setEditable(false);
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    scrollPane.setPreferredSize(new Dimension(500, 400));
+
+                    JOptionPane.showMessageDialog(this, scrollPane, "Cartão de Vacina", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+
+
+                }
+
+        
+        }
+
+        
+        
+        
+        
+    }//GEN-LAST:event_BotaoVacinaActionPerformed
 
     public void imprimir(Animal animal){
         txtNome.setText(animal.getNome());

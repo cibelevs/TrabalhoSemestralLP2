@@ -25,11 +25,13 @@ public class CadAnimal extends javax.swing.JFrame {
      */
      public CadAnimal() {
         initComponents(); 
+        setLocationRelativeTo(null);
         btmExcluir.setVisible(false);
     }
      
     public CadAnimal(boolean update) {
         initComponents();
+        setLocationRelativeTo(null);
         this.update = update;
         TITULO.setText("Atualizar dados de Animal");
         Cadastrar.setText("ATUALIZAR");

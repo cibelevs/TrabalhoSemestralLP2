@@ -28,9 +28,8 @@ public class Vacinar extends javax.swing.JFrame {
      */
     public Vacinar() {
         initComponents();
-        
-        
-        
+        setLocationRelativeTo(null);
+   
     }
     
    
@@ -192,6 +191,7 @@ public class Vacinar extends javax.swing.JFrame {
                 
             }
         }
+        
         if(this.animal == null){
             JOptionPane.showMessageDialog(this, "Esse tutor não tem nenhum animal com esse nome!");
             Utilitarios.limparCampos(List.of(nomeAnimal, cpfTutor, NomeVacina, dataAplicacao, dataVencimento));
@@ -208,12 +208,20 @@ public class Vacinar extends javax.swing.JFrame {
         
        
         this.animal.adicionarVacina(this.vacina, LocalDate.parse(dataAplicacao.getText()), LocalDate.parse(dataVencimento.getText()));
-        JOptionPane.showMessageDialog(this, "Vacina registrada!");
-        this.dispose();
+        
+       String nomeVacina = this.vacina.getNome();
+        double preco = this.vacina.getPreco();
+
+        String mensagem = String.format(
+            " Vacina \"%s\" aplicada com sucesso.\n Valor a ser pago: R$ %.2f",
+            nomeVacina, preco
+        );
+
+        JOptionPane.showMessageDialog(this, mensagem, "Vacina Registrada", JOptionPane.INFORMATION_MESSAGE);
 
         
-        
-        
+        this.dispose();
+
     }//GEN-LAST:event_RegistrarActionPerformed
 
     

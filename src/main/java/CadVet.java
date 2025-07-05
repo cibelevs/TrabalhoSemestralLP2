@@ -37,6 +37,7 @@ public class CadVet extends javax.swing.JFrame {
      */
     public CadVet() {
         initComponents();
+        setLocationRelativeTo(null);
         btmExcluir.setVisible(false); 
         Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

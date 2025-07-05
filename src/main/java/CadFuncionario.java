@@ -23,11 +23,13 @@ public class CadFuncionario extends javax.swing.JFrame {
      */
     public CadFuncionario() {
         initComponents();
+        setLocationRelativeTo(null);
         btmExcluir.setVisible(false);
     }
     
     public CadFuncionario(boolean update) {
         initComponents();
+        setLocationRelativeTo(null);
         this.update = update;
         TITULO.setText("Atualizar dados de Funcionario");
         btmExcluir.setVisible(true);

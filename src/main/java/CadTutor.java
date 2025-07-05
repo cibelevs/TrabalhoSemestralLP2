@@ -29,6 +29,7 @@ public class CadTutor extends javax.swing.JFrame {
     
     public CadTutor(boolean update) {
         initComponents();
+        setLocationRelativeTo(null);
         this.update = update;
         TITULO.setText("Atualizar dados de Tutor");
         cadastrarTutor.setText("ATUALIZAR");

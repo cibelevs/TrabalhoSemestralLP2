@@ -2,6 +2,7 @@
 import back_end.Animal;
 import back_end.DadosApp;
 import back_end.Tutor;
+import back_end.Vacina;
 import back_end.Veterinario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -62,14 +63,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         atualizarFuncionario = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        atualizarVacina = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         pesquisaPessoa = new javax.swing.JMenuItem();
         pesquisaAnimal = new javax.swing.JMenuItem();
+        Vacinas = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        fileMenu.setMnemonic('f');
         fileMenu.setText("Cadastro");
 
+        openMenuItem.setMnemonic('o');
         openMenuItem.setText("Veterinario");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +83,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(openMenuItem);
 
+        saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Funcionario");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +92,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(saveMenuItem);
 
+        saveAsMenuItem.setMnemonic('a');
         saveAsMenuItem.setText("Tutor");
         saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +101,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         fileMenu.add(saveAsMenuItem);
 
+        exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Vacina");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +120,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
+        editMenu.setMnemonic('e');
         editMenu.setText("Consultas");
 
+        cutMenuItem.setMnemonic('t');
         cutMenuItem.setText("Agendamentos");
         editMenu.add(cutMenuItem);
 
@@ -127,7 +137,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Editar");
 
-        jMenuItem6.setText("Atualizar Tutor ");
+        jMenuItem6.setText("Tutor ");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -135,7 +145,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem6);
 
-        atualizarFuncionario.setText("Atualizar Funcionario");
+        atualizarFuncionario.setText("Funcionário");
         atualizarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 atualizarFuncionarioActionPerformed(evt);
@@ -143,13 +153,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(atualizarFuncionario);
 
-        jMenuItem2.setText("Atualizar Animal");
+        jMenuItem2.setText("Animal");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem2);
+
+        atualizarVacina.setText("Vacina");
+        atualizarVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarVacinaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(atualizarVacina);
 
         menuBar.add(jMenu1);
 
@@ -170,6 +188,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(pesquisaAnimal);
+
+        Vacinas.setSelected(true);
+        Vacinas.setText("Vacina");
+        Vacinas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VacinasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(Vacinas);
 
         menuBar.add(jMenu2);
 
@@ -314,6 +341,71 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void atualizarVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarVacinaActionPerformed
+        // TODO add your handling code here:
+        String vacina = JOptionPane.showInputDialog(this, "Digite o nome da vacina:");
+        for(Vacina vac: DadosApp.clinica.getVacinas()){
+            if(vac.getNome().equalsIgnoreCase(vacina)){
+                CadVacina cadVac = new CadVacina(true, vac);
+                cadVac.setVisible(true);
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this,"Vacina não encontrada");
+        
+    }//GEN-LAST:event_atualizarVacinaActionPerformed
+
+    private void VacinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VacinasActionPerformed
+
+    String[] opcoes = {"Listar todas", "Buscar por nome"};
+    int opcao = JOptionPane.showOptionDialog(
+        this,
+        "Escolha uma opção:",
+        "Vacinas",
+        JOptionPane.DEFAULT_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        opcoes,
+        opcoes[0]
+    );
+
+    if (opcao == 0) {
+
+        StringBuilder sb = new StringBuilder();
+        for (Vacina vac : DadosApp.clinica.getVacinas()) {
+            sb.append("Nome: ").append(vac.getNome())
+              .append("\nPreço: R$ ").append(vac.getPreco())
+              .append("\nVencimento: ").append(vac.getDataVencimento())
+              .append("\n------------------\n");
+        }
+
+        if (sb.length() == 0) {
+            JOptionPane.showMessageDialog(this, "Nenhuma vacina cadastrada.");
+        } else {
+            JOptionPane.showMessageDialog(this, sb.toString(), "Lista de Vacinas", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    } else if (opcao == 1) {
+
+        String nomeBusca = JOptionPane.showInputDialog(this, "Digite o nome da vacina:");
+        if (nomeBusca == null || nomeBusca.trim().isEmpty()) return;
+
+        for (Vacina vac : DadosApp.clinica.getVacinas()) {
+            if (vac.getNome().equalsIgnoreCase(nomeBusca.trim())) {
+                String info = "Nome: " + vac.getNome()
+                            + "\nPreço: R$ " + vac.getPreco()
+                            + "\nVencimento: " + vac.getDataVencimento();
+                JOptionPane.showMessageDialog(this, info, "Vacina Encontrada", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Vacina não encontrada.");
+    }
+
+
+        
+    }//GEN-LAST:event_VacinasActionPerformed
+
     public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
          if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
             for (Tutor t : DadosApp.clinica.getTutores()) {
@@ -372,7 +464,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CadastrarAnimal;
+    private javax.swing.JCheckBoxMenuItem Vacinas;
     private javax.swing.JMenuItem atualizarFuncionario;
+    private javax.swing.JMenuItem atualizarVacina;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;

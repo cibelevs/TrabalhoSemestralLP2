@@ -208,6 +208,11 @@ public class CadAgendamento extends javax.swing.JFrame {
         jLabel5.setText("Dia e Horario da Consulta:");
 
         botao.setText("AGENDAR CONSULTA");
+        botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoActionPerformed(evt);
+            }
+        });
 
         comboEspecialidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cirurgião", "Cardiologista", "Endocrinologista", "Enfermeiro", "Patologista" }));
         comboEspecialidade.addActionListener(new java.awt.event.ActionListener() {
@@ -299,6 +304,10 @@ public class CadAgendamento extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Nenhum agendamento selecionado para exclusão.");
         }
     }//GEN-LAST:event_btmExcluirActionPerformed
+
+    private void botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoActionPerformed
 
     /**
      * @param args the command line arguments

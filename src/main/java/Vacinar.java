@@ -166,13 +166,8 @@ public class Vacinar extends javax.swing.JFrame {
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
        
         
-        for(Tutor tutor: DadosApp.clinica.getTutores()){
-            if(tutor.getCpf().equalsIgnoreCase(cpfTutor.getText())){
-                this.tutor = tutor;
-               
-                
-            }
-        }
+        this.tutor = DadosApp.clinica.getTutores(cpfTutor.getText());
+        
         
         if(this.tutor == null){
             JOptionPane.showMessageDialog(this, "Nenhum tutor encontrado com esse CPF.");
@@ -180,17 +175,8 @@ public class Vacinar extends javax.swing.JFrame {
             return;
         }
        
+        this.animal = DadosApp.clinica.getAnimais(tutor, nomeAnimal.getText());
         
-        
-       
-        
-        for(Animal animal:this.tutor.getAnimais()){
-            if(animal.getNome().equalsIgnoreCase(nomeAnimal.getText())){
-                this.animal = animal;
-                
-                
-            }
-        }
         
         if(this.animal == null){
             JOptionPane.showMessageDialog(this, "Esse tutor não tem nenhum animal com esse nome!");

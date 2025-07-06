@@ -1,6 +1,16 @@
 
+import back_end.Animal;
 import back_end.Consulta;
+import back_end.DadosApp;
+import back_end.Tutor;
+import back_end.Veterinario;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -59,6 +69,11 @@ public class CadConsulta extends javax.swing.JFrame {
         jLabel4.setText("CPF do Tutor:");
 
         jButton1.setText("CADASTRAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Medicamento: ");
 
@@ -165,6 +180,62 @@ public class CadConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        verificarCampos();
+        cadastroConsulta();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    
+    
+    public void verificarCampos(){
+        List<JTextComponent> campos = List.of(txtNomeAnimal, txtCpfTutor, txtDiagnostico, txtMedicamento,txtProblema, txtVeterinario);
+            if (Utilitarios.validarCampos(campos)) {
+                return;
+            }
+
+    }
+        
+        
+        public void cadastroConsulta() {
+ 
+        LocalDateTime agora = LocalDateTime.now();
+        String problema = txtProblema.getText();
+            String diagnostico = txtDiagnostico.getText();
+            String medicamento = txtMedicamento.getText();
+            String nomeAnimal = txtNomeAnimal.getText();
+            Tutor tutor = DadosApp.clinica.getTutores(txtCpfTutor.getText()); 
+            Animal an = DadosApp.clinica.getAnimais(tutor, nomeAnimal);
+
+            if (an != null) {
+                Veterinario vet = DadosApp.clinica.buscarVeterinarioDisponivel(agora);
+
+                if (vet != null) {
+                    Consulta novaConsulta = new Consulta(agora, an, false, diagnostico, problema, medicamento, vet );
+                    DadosApp.clinica.getConsultas().add(novaConsulta); 
+
+                    JOptionPane.showMessageDialog(this,
+                    "Consulta marcada para: " +
+                    agora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + "\n" +
+                    "Veterinário: " + vet.getNome() + "\n" +
+                    "Preço: " + vet.getPrecoConsulta());
+
+                    dispose(); // fecha a tela somente após sucesso
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                        "Não existe veterinário disponível no momento!",
+                        "Veterinário indisponível",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+                } else {
+                JOptionPane.showMessageDialog(this,
+                    "Animal não encontrado!",
+                    "Animal não encontrado",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        
     /**
      * @param args the command line arguments
      */

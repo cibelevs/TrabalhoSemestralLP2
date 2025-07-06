@@ -78,7 +78,7 @@ public class CadAgendamento extends javax.swing.JFrame {
         
         Veterinario vetDisponivel = DadosApp.clinica.getVeterinarios().stream()
                 .filter(v -> v.getEspecialidade().equalsIgnoreCase(especialidade))
-                .filter(v -> DadosApp.clinica.veterinarioDisponivel(v, dataHora))
+                .filter(v -> DadosApp.clinica.vetDisponivel(v))
                 .findFirst()
                 .orElse(null);
 
@@ -87,8 +87,10 @@ public class CadAgendamento extends javax.swing.JFrame {
             return;
         }
 
+        dataHora = DadosApp.clinica.proximoHorarioDisponivel(dataHora);
+        
         Consulta novaConsulta = new Consulta(
-                dataHora.toLocalDate(),
+                dataHora,
                 animalEncontrado,
                 true,
                 "Consulta agendada via tela",

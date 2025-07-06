@@ -12,14 +12,14 @@ public class Veterinario extends Pessoa
 {
     private String especialidade, numeroCfmv;
     private double precoConsulta;
-    
-    public Veterinario(String nome, String cpf, String email, String telefone, 
-            String especialidade, String numeroCfmv, double precoConsulta)
-    {
+    private boolean disponivel;
+
+    public Veterinario(String especialidade, String numeroCfmv, double precoConsulta, boolean disponivel, String nome, String cpf, String email, String telefone) {
         super(nome, cpf, email, telefone);
         this.especialidade = especialidade;
         this.numeroCfmv = numeroCfmv;
         this.precoConsulta = precoConsulta;
+        this.disponivel = disponivel;
     }
 
     public String getEspecialidade() {
@@ -37,14 +37,24 @@ public class Veterinario extends Pessoa
     public void setNumeroCfmv(String numeroCfmv) {
         this.numeroCfmv = numeroCfmv;
     }
-    
+
     public double getPrecoConsulta() {
         return precoConsulta;
     }
-    
+
     public void setPrecoConsulta(double precoConsulta) {
         this.precoConsulta = precoConsulta;
     }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+    
+  
     
     @Override
     public String getDados(){

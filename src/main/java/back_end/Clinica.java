@@ -4,6 +4,14 @@
  */
 package back_end;
 
+import back_end.Agenda;
+import back_end.Animal;
+import back_end.Consulta;
+import back_end.Funcionario;
+import back_end.Pessoa;
+import back_end.Tutor;
+import back_end.Vacina;
+import back_end.Veterinario;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -69,6 +77,16 @@ public class Clinica {
         }
         return null;
     }
+    
+    public Animal getAnimais(Tutor tutor, String nomeAnimal){
+         for(Animal an : tutor.getAnimais()){
+                if(an.getNome().equals(nomeAnimal)){
+                    return an;
+                }
+            }
+            return null;
+    }
+    
 
     public void setTutores(ArrayList<Tutor> tutores) {
         this.tutores = tutores;
@@ -176,38 +194,69 @@ public class Clinica {
     }
     
     
-    public void atendimentoImediato(Animal animal) {
+    public boolean atendimentoImediato() {
         LocalDateTime agora = LocalDateTime.now();
-        if (horarioDisponivel(agora)) {
-            //Consulta c = new Consulta(animal, ...etc);
-            //consultas.add(c);
-            System.out.println("Consulta avulsa realizada agora!");
+        if(horarioDisponivel(agora)) {
+            return true;
         } else {
-            LocalDateTime proximo = proximoHorarioDisponivel(agora);
-            System.out.println("Horário atual ocupado. Próximo disponível: " + proximo);
-        }
-    }
-    
-    
-        public boolean veterinarioDisponivel(Veterinario vet, LocalDateTime dataHora) {
-        if (!estaDentroDoHorarioAtendimento(dataHora.toLocalTime())) {
             return false;
         }
+    }
+    
+    
+    
+    
+    
+     public Veterinario buscarVeterinarioDisponivel(LocalDateTime dataHora) {
+        // Verifica se o horário está dentro do período permitido
+        LocalTime hora = dataHora.toLocalTime();
+        boolean horarioValido = (
+            (!hora.isBefore(LocalTime.of(8, 0)) && hora.isBefore(LocalTime.of(12, 0))) ||
+            (!hora.isBefore(LocalTime.of(14, 0)) && hora.isBefore(LocalTime.of(18, 0)))
+        );
 
-        // Verifica se o veterinário já tem uma consulta marcada nesse horário
-        for (Consulta c : consultas) {
-            if (c.isConsultaMarcada() &&
-                c.getVeterinario().equals(vet) &&
-                c.getDataHora().equals(dataHora)) {
-                return false; 
-            }
+        if (!horarioValido) {
+            return null; // horário inválido
         }
 
-        return true; 
+        // Para cada veterinário
+        for (Veterinario vet : veterinarios) {
+            if (vet.isDisponivel()) {
+                boolean ocupado = false;
+
+                // Para cada consulta
+                for (Consulta c : consultas) {
+                    if (c.isConsultaMarcada() &&
+                        c.getVeterinario().equals(vet) &&
+                        c.getDataHora().equals(dataHora)) {
+                        ocupado = true;
+                        break;
+                    }
+                }
+
+                if (!ocupado) {
+                    return vet; // achou um disponível
+                }
+            }
     }
 
+    return null; // nenhum disponível
+}
+
+
+
+    public boolean vetDisponivel(Veterinario v){
+          if(v.isDisponivel()) return true;
+        return false;
+    }
     
-     
+     public Veterinario getVeterinario(String nomeVet){
+        for(Veterinario vet: veterinarios){
+            if(vet.getNome().equals(nomeVet)) 
+                return vet;
+        }
+        return null;
+     }
    
     public Vacina getVacina(String vacina){
         for(Vacina vac: this.vacinas){
@@ -230,6 +279,4 @@ public class Clinica {
     }
 
 
-    
-    
 }

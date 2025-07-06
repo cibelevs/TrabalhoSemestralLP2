@@ -469,8 +469,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             CadAgendamento telaAgendamento = new CadAgendamento();
             telaAgendamento.setVisible(true);
         } else {
-            CadConsulta telaConsulta = new CadConsulta();
-            telaConsulta.setVisible(true);
+            
+            LocalDateTime agora = LocalDateTime.now();
+            LocalDateTime proximo = DadosApp.clinica.proximoHorarioDisponivel(agora);
+        
+            int opcao2 = JOptionPane.showConfirmDialog (this,
+                        "\nPróximo horário disponível: "
+                      + proximo.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                      + "\nDeseja agendar nesse horário?",
+                        "Horário ocupado",
+                        JOptionPane.YES_NO_OPTION);
+
+                    if (opcao2 == JOptionPane.YES_OPTION) {
+                                CadConsulta telaConsulta = new CadConsulta();
+                                telaConsulta.setVisible(true);
+                                dispose();
+                    } else{
+                        JOptionPane.showMessageDialog(this, "Cadastro de consulta cancelado!");
+                    }
         }
 
         

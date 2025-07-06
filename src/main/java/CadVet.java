@@ -49,7 +49,7 @@ public class CadVet extends javax.swing.JFrame {
     private void salvarVeterinario() {
         java.util.List<javax.swing.JTextField> campos = java.util.Arrays.asList(
     txtNome, txtCpf, txtTelefone, txtEmail,
-    txtEspecialidade, txtNumeroCfmv, txtPrecoConsulta
+    txtNumeroCfmv, txtPrecoConsulta
     );
 
     if (Utilitarios.validaCampos(campos)) {
@@ -60,7 +60,7 @@ public class CadVet extends javax.swing.JFrame {
         String cpf = txtCpf.getText();
         String telefone = txtTelefone.getText();
         String email = txtEmail.getText();
-        String especialidade = txtEspecialidade.getText();
+        String especialidade = jComboBox1.getSelectedItem().toString();
         String numeroCfmv = txtNumeroCfmv.getText();
 
         double precoConsulta = 0.0;
@@ -99,7 +99,7 @@ public class CadVet extends javax.swing.JFrame {
         txtCpf.setText(v.getCpf());
         txtTelefone.setText(v.getTelefone());
         txtEmail.setText(v.getEmail());
-        txtEspecialidade.setText(v.getEspecialidade());
+        jComboBox1.setSelectedItem(v.getEspecialidade());
         txtNumeroCfmv.setText(v.getNumeroCfmv());
         txtPrecoConsulta.setText(String.format("%.2f", v.getPrecoConsulta())); 
         
@@ -129,11 +129,11 @@ public class CadVet extends javax.swing.JFrame {
         txtCpf = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        txtEspecialidade = new javax.swing.JTextField();
         txtNumeroCfmv = new javax.swing.JTextField();
         txtPrecoConsulta = new javax.swing.JTextField();
         Cadastrar = new javax.swing.JButton();
         btmExcluir = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -170,6 +170,8 @@ public class CadVet extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cirurgião", "Cardiolosgista", "Endocrinologista", "Enfermeiro", "Patologista" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,9 +188,6 @@ public class CadVet extends javax.swing.JFrame {
                             .addComponent(txtTelefone)
                             .addComponent(txtCpf)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TITULO)
-                        .addGap(0, 112, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
@@ -197,17 +196,21 @@ public class CadVet extends javax.swing.JFrame {
                             .addComponent(txtEmail)
                             .addComponent(txtNome)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEspecialidade))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNumeroCfmv))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecoConsulta)))
+                        .addComponent(txtPrecoConsulta))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TITULO)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 112, Short.MAX_VALUE)))
                 .addGap(120, 120, 120))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,7 +243,7 @@ public class CadVet extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -319,6 +322,7 @@ public class CadVet extends javax.swing.JFrame {
     private javax.swing.JButton Cadastrar;
     private javax.swing.JLabel TITULO;
     private javax.swing.JButton btmExcluir;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -328,7 +332,6 @@ public class CadVet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEspecialidade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumeroCfmv;
     private javax.swing.JTextField txtPrecoConsulta;

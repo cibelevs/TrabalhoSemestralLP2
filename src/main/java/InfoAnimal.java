@@ -1,14 +1,11 @@
 
 import back_end.Animal;
-import back_end.Consulta;
 import back_end.DadosApp;
 import back_end.RegistroVacina;
 import back_end.Tutor;
 import back_end.Vacina;
 import java.awt.Dimension;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
@@ -63,11 +60,6 @@ public class InfoAnimal extends javax.swing.JFrame {
         jLabel5.setText("Nome do Tutor:");
 
         jButton1.setText("EMITIR PRONTUARIO");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         BotaoVacina.setText("EMITIR INFORMAÇÕES DE VACINA");
         BotaoVacina.addActionListener(new java.awt.event.ActionListener() {
@@ -266,53 +258,6 @@ public class InfoAnimal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_BotaoVacinaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        StringBuilder prontuario = new StringBuilder();
-
-        for (Tutor tutor : DadosApp.clinica.getTutores()) {
-            boolean tutorTemConsultas = false;
-
-            for (Animal animal : tutor.getAnimais()) {
-                List<Consulta> consultasDoAnimal = DadosApp.clinica.getConsultas().stream()
-                    .filter(c -> c.getAnimal().equals(animal))
-                    .sorted(Comparator.comparing(Consulta::getDataHora).reversed())
-                    .collect(Collectors.toList());
-
-                if (!consultasDoAnimal.isEmpty()) {
-                    if (!tutorTemConsultas) {
-                        prontuario.append("Tutor: ").append(tutor.getNome())
-                                  .append(" (CPF: ").append(tutor.getCpf()).append(")\n");
-                        tutorTemConsultas = true;
-                    }
-
-                    prontuario.append("  Animal: ").append(animal.getNome()).append("\n");
-
-                    for (Consulta c : consultasDoAnimal) {
-                        prontuario.append("     Data: ").append(c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))).append("\n")
-                                  .append("    ️ Veterinário: ").append(c.getVeterinario().getNome()).append("\n")
-                                  .append("     Problema: ").append(c.getProblema()).append("\n")
-                                  .append("     Diagnóstico: ").append(c.getDiagnostico()).append("\n")
-                                  .append("    Medicamento: ").append(c.getMedicamento()).append("\n\n");
-                    }
-                }
-            }
-        }
-
-        if (prontuario.length() == 0) {
-            JOptionPane.showMessageDialog(this, "Nenhuma consulta registrada.");
-        } else {
-            JTextArea textArea = new JTextArea(prontuario.toString());
-            textArea.setEditable(false);
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            scrollPane.setPreferredSize(new Dimension(600, 450));
-
-            JOptionPane.showMessageDialog(this, scrollPane, "Prontuário de Consultas", JOptionPane.INFORMATION_MESSAGE);
-        }
-   
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void imprimir(Animal animal){
         txtNome.setText(animal.getNome());

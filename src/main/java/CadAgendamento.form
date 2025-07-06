@@ -136,6 +136,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="AGENDAR CONSULTA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboEspecialidade">
       <Properties>

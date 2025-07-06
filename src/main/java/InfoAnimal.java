@@ -1,11 +1,13 @@
 
 import back_end.Animal;
+import back_end.Consulta;
 import back_end.DadosApp;
 import back_end.RegistroVacina;
 import back_end.Tutor;
 import back_end.Vacina;
 import java.awt.Dimension;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
@@ -60,6 +62,11 @@ public class InfoAnimal extends javax.swing.JFrame {
         jLabel5.setText("Nome do Tutor:");
 
         jButton1.setText("EMITIR PRONTUARIO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         BotaoVacina.setText("EMITIR INFORMAÇÕES DE VACINA");
         BotaoVacina.addActionListener(new java.awt.event.ActionListener() {
@@ -258,6 +265,52 @@ public class InfoAnimal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_BotaoVacinaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Tutor tutorEncontrado = null;
+
+        for (Tutor t : DadosApp.clinica.getTutores()) {
+            if (t.getNome().equals(txtNomeTutor.getText())) {
+                tutorEncontrado = t;
+                break; // Já encontrou, pode sair do loop
+            }
+        }
+
+        if (tutorEncontrado != null) {
+            List<Consulta> consultasDoTutor = new ArrayList<>();
+
+            for (Consulta c : DadosApp.clinica.getConsultas()) {
+                if (c.getAnimal().getTutor().equals(tutorEncontrado)) {
+                    consultasDoTutor.add(c);
+                }
+            }
+
+            // Ordena do mais recente para o mais antigo (data decrescente)
+            consultasDoTutor.sort((c1, c2) -> c2.getDataHora().compareTo(c1.getDataHora()));
+
+            // Montar string com informações
+            StringBuilder sb = new StringBuilder();
+            for (Consulta c : consultasDoTutor) {
+                sb.append("Data: ").append(c.getDataHora()).append("\n");
+                sb.append("Animal: ").append(c.getAnimal().getNome()).append("\n");
+                sb.append("Problema: ").append(c.getProblema()).append("\n");
+                sb.append("Diagnóstico: ").append(c.getDiagnostico()).append("\n");
+                sb.append("Medicamento: ").append(c.getMedicamento()).append("\n");
+                sb.append("----\n");
+            }
+
+            if (sb.length() == 0) {
+                sb.append("Nenhuma consulta encontrada para este Animal.");
+            }
+
+            JOptionPane.showMessageDialog(this, sb.toString());
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Tutor não encontrado");
+        }     
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void imprimir(Animal animal){
         txtNome.setText(animal.getNome());

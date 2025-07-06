@@ -26,7 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="TITULO" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -54,11 +54,13 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="159" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="197" max="-2" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
+              <Component id="btmExcluir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+              <Component id="botao" min="-2" pref="197" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -67,7 +69,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="TITULO" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -89,7 +91,10 @@
                   <Component id="txtDiaHorario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btmExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="213" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -98,7 +103,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtCpfTutor">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="TITULO">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI Historic" size="24" style="1"/>
@@ -132,10 +137,18 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtDiaHorario">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="botao">
       <Properties>
         <Property name="text" type="java.lang.String" value="AGENDAR CONSULTA"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btmExcluir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="EXCLUIR AGENDAMENTO"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmExcluirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

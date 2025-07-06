@@ -1,3 +1,11 @@
+
+import back_end.Consulta;
+import back_end.DadosApp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -17,7 +25,43 @@ public class CadConsulta extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
     }
-
+    
+    
+    public void editarConsulta(Consulta c){
+        String novoDiagnostico = txtDiagnostico.getText();
+        String novoMedicamento = txtMedicamento.getText();
+        String novoProblema = txtProblema.getText();
+        txtVeterinario.setEditable(false);
+        txtNomeAnimal.setEditable(false);
+        txtCpfTutor.setEditable(false);
+        
+        Cadastrar.setText("ATUALIZAR");
+    
+        c.setDiagnostico(novoDiagnostico);
+        c.setMedicamento(novoMedicamento);
+        c.setProblema(novoProblema);
+        
+        JOptionPane.showMessageDialog(this, "Dados da Consulta atualizado com sucesso!");
+        this.dispose();
+    
+    
+    
+    
+    }
+    
+    public void inserirDados(Consulta c){
+        txtNomeAnimal.setText(c.getAnimal().getNome());
+        txtCpfTutor.setText(c.getAnimal().getTutor().getCpf());
+        txtDiagnostico.setText(c.getDiagnostico());
+        txtProblema.setText(c.getProblema());
+        txtMedicamento.setText(c.getMedicamento());
+        txtVeterinario.setText(c.getVeterinario().getNome());
+    }
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,12 +77,12 @@ public class CadConsulta extends javax.swing.JFrame {
         txtNomeAnimal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtCpfTutor = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Cadastrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtDiagnostico = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtProblema = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         txtMedicamento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -54,15 +98,15 @@ public class CadConsulta extends javax.swing.JFrame {
 
         jLabel4.setText("CPF do Tutor:");
 
-        jButton1.setText("CADASTRAR");
+        Cadastrar.setText("CADASTRAR");
 
         jLabel5.setText("Medicamento: ");
 
         jLabel6.setText("Diagnostico:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtProblema.setColumns(20);
+        txtProblema.setRows(5);
+        jScrollPane1.setViewportView(txtProblema);
 
         jLabel7.setText("Problema:");
 
@@ -76,7 +120,7 @@ public class CadConsulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +198,7 @@ public class CadConsulta extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addComponent(txtVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(83, 83, 83)
-                .addComponent(jButton1)
+                .addComponent(Cadastrar)
                 .addGap(72, 72, 72))
         );
 
@@ -197,7 +241,7 @@ public class CadConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Cadastrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,11 +252,11 @@ public class CadConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtCpfTutor;
     private javax.swing.JTextField txtDiagnostico;
     private javax.swing.JTextField txtMedicamento;
     private javax.swing.JTextField txtNomeAnimal;
+    private javax.swing.JTextArea txtProblema;
     private javax.swing.JTextField txtVeterinario;
     // End of variables declaration//GEN-END:variables
 }

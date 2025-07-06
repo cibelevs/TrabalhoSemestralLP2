@@ -1,3 +1,11 @@
+
+import back_end.Agenda;
+import back_end.DadosApp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,6 +16,7 @@
  * @author T-GAMER
  */
 public class CadAgendamento extends javax.swing.JFrame {
+    private Agenda agendaSelecionada;
 
     /**
      * Creates new form CadAgendamento
@@ -15,8 +24,55 @@ public class CadAgendamento extends javax.swing.JFrame {
     public CadAgendamento() {
         initComponents();
         setLocationRelativeTo(null);
+        btmExcluir.setVisible(false);
 
     }
+    
+   public void salvarEdicaoAgendamento(Agenda agendamento) {
+    try {
+        String novoDataHoraStr = txtDiaHorario.getText();
+        String novaEspecialidade = txtEspecialidade.getText();
+        txtNomeAnimal.setEditable(false);
+        txtCpfTutor.setEditable(false);
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime novoDataHora = LocalDateTime.parse(novoDataHoraStr, formatter);
+
+        // Verifica se o horário foi alterado e se está disponível
+        if (!agendamento.getDiaHorario().equals(novoDataHora) &&
+            !DadosApp.clinica.horarioDisponivel(novoDataHora)) {
+            JOptionPane.showMessageDialog(this, "Horário indisponível para agendamento!");
+            return;
+        }
+        botao.setText("EDITAR AGENDAMENTO");
+        btmExcluir.setVisible(true);
+        // Atualiza os dados do agendamento
+        agendamento.setDiaHorario(novoDataHora);
+        agendamento.setEspecialidade(novaEspecialidade);
+
+        JOptionPane.showMessageDialog(this, "Agendamento atualizado com sucesso!");
+        this.dispose();
+
+    } catch (DateTimeParseException e) {
+        JOptionPane.showMessageDialog(this, "Formato de data/hora inválido! Use dd/MM/yyyy HH:mm");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage());
+    }
+}
+
+
+    public void inserirDados(Agenda ag){
+        this.agendaSelecionada = ag;  // armazena para usar depois
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        txtDiaHorario.setText(ag.getDiaHorario().format(formatter));
+        txtEspecialidade.setText(ag.getEspecialidade());
+        txtNomeAnimal.setText(ag.getAnimal().getNome());
+        txtCpfTutor.setText(ag.getAnimal().getTutor().getCpf());
+    }
+    
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,7 +84,7 @@ public class CadAgendamento extends javax.swing.JFrame {
     private void initComponents() {
 
         txtCpfTutor = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNomeAnimal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -36,12 +92,13 @@ public class CadAgendamento extends javax.swing.JFrame {
         txtEspecialidade = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDiaHorario = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botao = new javax.swing.JButton();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Agendamento de Consultas");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Agendamento de Consultas");
 
         jLabel2.setText("Nome do Animal:");
 
@@ -51,7 +108,14 @@ public class CadAgendamento extends javax.swing.JFrame {
 
         jLabel5.setText("Dia e Horario da Consulta:");
 
-        jButton1.setText("AGENDAR CONSULTA");
+        botao.setText("AGENDAR CONSULTA");
+
+        btmExcluir.setText("EXCLUIR AGENDAMENTO");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,7 +124,7 @@ public class CadAgendamento extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(TITULO)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -80,17 +144,19 @@ public class CadAgendamento extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtDiaHorario)))))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addComponent(btmExcluir)
+                .addGap(104, 104, 104)
+                .addComponent(botao, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -108,12 +174,42 @@ public class CadAgendamento extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtDiaHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(91, 91, 91)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botao)
+                    .addComponent(btmExcluir))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void excluirAgendamento (Agenda ag){
+        int resposta = JOptionPane.showConfirmDialog(
+            this,
+            "Tem certeza que deseja excluir este agendamento?",
+            "Confirmar Exclusão",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            DadosApp.clinica.getAgendamentos().remove(ag);
+            JOptionPane.showMessageDialog(this, "Agendamento excluído com sucesso!");
+            this.dispose(); 
+        }
+    }
+    
+    
+    
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        if (agendaSelecionada != null) {
+            excluirAgendamento(agendaSelecionada);
+        } else {
+            JOptionPane.showMessageDialog(this, "Nenhum agendamento selecionado para exclusão.");
+        }
+
+    }//GEN-LAST:event_btmExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,8 +247,9 @@ public class CadAgendamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel TITULO;
+    private javax.swing.JButton botao;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

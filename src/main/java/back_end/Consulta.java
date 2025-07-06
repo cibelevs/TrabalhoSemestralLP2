@@ -4,20 +4,20 @@
  */
 package back_end;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author T-GAMER
  */
 public class Consulta {
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
     private Animal animal;
     private boolean consultaMarcada;
     private String diagnostico, problema,medicamento;
     private Veterinario veterinario;
 
-    public Consulta(LocalDate dataHora, Animal animal, boolean consultaMarcada, String diagnostico, String problema, String medicamento, Veterinario veterinario) {
+    public Consulta(LocalDateTime dataHora, Animal animal, boolean consultaMarcada, String diagnostico, String problema, String medicamento, Veterinario veterinario) {
         this.dataHora = dataHora;
         this.animal = animal;
         this.consultaMarcada = consultaMarcada;
@@ -27,11 +27,11 @@ public class Consulta {
         this.veterinario = veterinario;
     }
 
-    public LocalDate getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(LocalDate dataHora) {
+    public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
 
@@ -83,6 +83,7 @@ public class Consulta {
         this.veterinario = veterinario;
     }
 
+   
     
     
     

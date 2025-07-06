@@ -1,3 +1,7 @@
+
+import back_end.Consulta;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -38,7 +42,7 @@ public class CadConsulta extends javax.swing.JFrame {
         txtDiagnostico = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtProblema = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         txtMedicamento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -60,9 +64,9 @@ public class CadConsulta extends javax.swing.JFrame {
 
         jLabel6.setText("Diagnostico:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtProblema.setColumns(20);
+        txtProblema.setRows(5);
+        jScrollPane1.setViewportView(txtProblema);
 
         jLabel7.setText("Problema:");
 
@@ -195,6 +199,44 @@ public class CadConsulta extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void editarConsulta(Consulta c) {
+        txtNomeAnimal.setEditable(false);
+        txtVeterinario.setEditable(false);
+        txtCpfTutor.setEditable(false);
+    try {
+        
+        String novoProblema = txtProblema.getText().trim();
+        String novoDiagnostico = txtDiagnostico.getText().trim();
+        String novoMedicamento = txtMedicamento.getText().trim();
+
+        // Atualiza os dados permitidos
+        c.setProblema(novoProblema);
+        c.setDiagnostico(novoDiagnostico);
+        c.setMedicamento(novoMedicamento);
+
+        JOptionPane.showMessageDialog(this, "Consulta atualizada com sucesso!");
+        this.dispose(); // Fecha a tela de edição
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao editar consulta: " + e.getMessage());
+    }
+}
+
+    void inserirDados(Consulta c){
+        txtNomeAnimal.setText(c.getAnimal().getNome());
+        txtDiagnostico.setText(c.getDiagnostico());
+        txtProblema.setText(c.getProblema());
+        txtMedicamento.setText(c.getMedicamento());
+        txtVeterinario.setText(c.getVeterinario().getNome());
+        txtCpfTutor.setText(c.getAnimal().getTutor().getCpf());
+    }
+    
+    
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -208,11 +250,11 @@ public class CadConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtCpfTutor;
     private javax.swing.JTextField txtDiagnostico;
     private javax.swing.JTextField txtMedicamento;
     private javax.swing.JTextField txtNomeAnimal;
+    private javax.swing.JTextArea txtProblema;
     private javax.swing.JTextField txtVeterinario;
     // End of variables declaration//GEN-END:variables
 }

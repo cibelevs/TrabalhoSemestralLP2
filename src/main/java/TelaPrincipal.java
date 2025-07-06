@@ -1,10 +1,15 @@
 
+import back_end.Agenda;
 import back_end.Animal;
+import back_end.Consulta;
 import back_end.DadosApp;
 import back_end.Funcionario;
 import back_end.Tutor;
 import back_end.Vacina;
 import back_end.Veterinario;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -64,6 +69,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         atualizarFuncionario = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         atualizarVacina = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         pesquisaPessoa = new javax.swing.JMenuItem();
         pesquisaAnimal = new javax.swing.JMenuItem();
@@ -175,6 +182,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(atualizarVacina);
+
+        jMenuItem1.setText("Agendamento");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem3.setText("Consulta");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
         menuBar.add(jMenu1);
 
@@ -451,6 +474,76 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cutMenuItemActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+            String dataHoraStr = JOptionPane.showInputDialog(
+                this,
+                "Digite o dia e horário do agendamento (formato: dd/MM/yyyy HH:mm):"
+            );
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            LocalDateTime dataHora;
+
+            try {
+                // Converte string para LocalDateTime
+                dataHora = LocalDateTime.parse(dataHoraStr, formatter);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Formato de data/hora inválido! Use dd/MM/yyyy HH:mm");
+                return;
+            }
+
+            Agenda agendaEncontrada = null;
+            for (Agenda ag : DadosApp.clinica.getAgendamentos()) {
+                if (ag.getDiaHorario().equals(dataHora)) {
+                    agendaEncontrada = ag;
+                    break;
+                }
+            }
+
+            if (agendaEncontrada != null) {
+                CadAgendamento agendamentoEditar = new CadAgendamento();
+                agendamentoEditar.inserirDados(agendaEncontrada);
+                agendamentoEditar.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum agendamento encontrado para essa data e horário.");
+            }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        // Digita a data e hora da consulta que quer editar
+            String dataHoraStr = JOptionPane.showInputDialog(null, "Digite a data e hora da consulta (dd/MM/yyyy HH:mm):");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            LocalDateTime dataHoraConsulta;
+
+            try {
+                dataHoraConsulta = LocalDateTime.parse(dataHoraStr, formatter);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato inválido de data/hora!");
+                return;
+            }
+
+            // Procurar consulta na lista da clínica
+            Consulta consultaEditar = null;
+            for (Consulta c : DadosApp.clinica.getConsultas()) {
+                if (c.getDataHora().equals(dataHoraConsulta)) {
+                    consultaEditar = c;
+                    break;
+                }
+            }
+
+            if (consultaEditar != null) {
+                CadConsulta editarConsulta = new CadConsulta();
+                editarConsulta.inserirDados(consultaEditar);
+                editarConsulta.editarConsulta(consultaEditar);
+                editarConsulta.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Consulta não encontrada para essa data e hora.");
+            }
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
 
     public Tutor buscarTutor(ArrayList <Tutor> tutores, String cpfBusca){
          if (cpfBusca != null && !cpfBusca.trim().isEmpty()) {  // Check if user didn't cancel or enter empty string
@@ -531,7 +624,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;

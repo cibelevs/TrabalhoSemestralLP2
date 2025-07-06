@@ -4,6 +4,7 @@ import back_end.Animal;
 import back_end.Consulta;
 import back_end.DadosApp;
 import back_end.Funcionario;
+import back_end.Popular;
 import back_end.Tutor;
 import back_end.Vacina;
 import back_end.Veterinario;
@@ -31,6 +32,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         corrigirIcones();
         setLocationRelativeTo(null);
+        Popular popularDados = new Popular();
         
     }
 

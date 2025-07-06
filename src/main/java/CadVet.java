@@ -47,6 +47,7 @@ public class CadVet extends javax.swing.JFrame {
     }
     
     private void salvarVeterinario() {
+        
         java.util.List<javax.swing.JTextField> campos = java.util.Arrays.asList(
     txtNome, txtCpf, txtTelefone, txtEmail,
     txtNumeroCfmv, txtPrecoConsulta
@@ -73,7 +74,7 @@ public class CadVet extends javax.swing.JFrame {
 
         
         if (!update) {
-            Veterinario vet = new Veterinario(nome, cpf, email, telefone, especialidade, numeroCfmv, precoConsulta);
+            Veterinario vet = new Veterinario(especialidade, numeroCfmv, precoConsulta,true, nome, cpf, email, telefone);
             DadosApp.clinica.adicionarVeterinario(vet);
             javax.swing.JOptionPane.showMessageDialog(this, "Veterinário cadastrado com sucesso:\n" + vet.getNome(), "Cadastro", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -86,7 +87,7 @@ public class CadVet extends javax.swing.JFrame {
             veterinarioEditado.setEspecialidade(especialidade);
             veterinarioEditado.setNumeroCfmv(numeroCfmv);
             veterinarioEditado.setPrecoConsulta(precoConsulta);
-
+            veterinarioEditado.setDisponivel(true);
             javax.swing.JOptionPane.showMessageDialog(this, "Veterinário atualizado com sucesso:\n" + veterinarioEditado.getNome(), "Atualização", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
         

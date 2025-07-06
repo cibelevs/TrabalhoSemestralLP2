@@ -37,7 +37,7 @@ public class Popular {
     }
     
     private void popularVeterinario(){
-        Veterinario veterinario = new Veterinario("alita", "555555", "aluta454545", "719933431", "Cirurgião", "124123124", 450);
+        Veterinario veterinario = new Veterinario("Cirurgião" , "719933431", 450, true, "alita", "555555", "124123124" ,"aluta454545");
         DadosApp.clinica.adicionarVeterinario(veterinario);
         
     }

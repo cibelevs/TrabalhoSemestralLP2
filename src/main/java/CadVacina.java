@@ -22,6 +22,7 @@ public class CadVacina extends javax.swing.JFrame {
         initComponents();
         update = false;
         setLocationRelativeTo(null);
+        btmExcluir.setVisible(false);
  
     }
      
@@ -34,6 +35,7 @@ public class CadVacina extends javax.swing.JFrame {
         this.vac = vac;
         this.update = update;
         TITULO.setText("ATUALIZAR VACINA");
+        btmExcluir.setVisible(true);
     }
     
     
@@ -63,6 +65,7 @@ public class CadVacina extends javax.swing.JFrame {
         Cadastrar = new javax.swing.JButton();
         txtPreco = new javax.swing.JTextField();
         txtVencimento = new javax.swing.JTextField();
+        btmExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,19 +101,17 @@ public class CadVacina extends javax.swing.JFrame {
 
         txtVencimento.setName("txtvencimento"); // NOI18N
 
+        btmExcluir.setText("EXCLUIR VACINA");
+        btmExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(TITULO))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,13 +121,24 @@ public class CadVacina extends javax.swing.JFrame {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPreco)
                             .addComponent(txtVencimento))
-                        .addGap(176, 176, 176))))
+                        .addGap(176, 176, 176))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(127, 127, 127))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(TITULO))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +158,9 @@ public class CadVacina extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64)
-                .addComponent(Cadastrar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cadastrar)
+                    .addComponent(btmExcluir))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
 
@@ -209,6 +223,31 @@ public class CadVacina extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecoActionPerformed
 
+    private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
+        // TODO add your handling code here:
+        String nomeVacina = txtNome.getText();
+        if (DadosApp.clinica.vacinaExiste(nomeVacina)) {
+            Vacina vacinaParaRemover = DadosApp.clinica.getVacina(nomeVacina);
+
+            int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja excluir a vacina \"" + nomeVacina + "\"?",
+                "Confirmar Exclusão",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+
+            if (resposta == JOptionPane.YES_OPTION) {
+                DadosApp.clinica.getVacinas().remove(vacinaParaRemover);
+                JOptionPane.showMessageDialog(this, "Vacina removida com sucesso!");
+                this.dispose(); // Fecha a janela atual (opcional)
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vacina não encontrada no sistema.");
+        }
+
+    }//GEN-LAST:event_btmExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -247,6 +286,7 @@ public class CadVacina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cadastrar;
     private javax.swing.JLabel TITULO;
+    private javax.swing.JButton btmExcluir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

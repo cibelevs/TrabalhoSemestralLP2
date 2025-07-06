@@ -1,11 +1,10 @@
-
-import back_end.Agenda;
-import back_end.DadosApp;
-import static java.awt.SystemColor.text;
+import back_end.*; 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,7 +24,152 @@ public class CadAgendamento extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         btmExcluir.setVisible(false);
+        
+        botao.setText("AGENDAR CONSULTA");
+        botao.addActionListener((e) -> {
+            if (agendaSelecionada == null) {
+                agendarConsulta();
+            } else {
+                salvarEdicaoAgendamento(agendaSelecionada);
+            }
+        });
     }
+    
+    private void agendarConsulta() {
+        String nomeAnimal = txtNomeAnimal.getText().trim();
+        String cpfTutor = txtCpfTutor.getText().trim();
+        String especialidade = (String) comboEspecialidade.getSelectedItem();
+        String dataHoraTexto = txtDiaHorario.getText().trim();
+
+        if (nomeAnimal.isEmpty() || cpfTutor.isEmpty() || dataHoraTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+            return;
+        }
+
+        Tutor tutor = DadosApp.clinica.getTutores(cpfTutor);
+        if (tutor == null) {
+            JOptionPane.showMessageDialog(null, "Tutor não encontrado!");
+            return;
+        }
+
+        Animal animalEncontrado = tutor.getAnimais().stream()
+                .filter(a -> a.getNome().equalsIgnoreCase(nomeAnimal))
+                .findFirst()
+                .orElse(null);
+
+        if (animalEncontrado == null) {
+            JOptionPane.showMessageDialog(null, "Animal não encontrado para este tutor!");
+            return;
+        }
+
+        LocalDateTime dataHora;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            dataHora = LocalDateTime.parse(dataHoraTexto, formatter);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Formato de data e hora inválido! Use dd/MM/yyyy HH:mm");
+            return;
+        }
+        
+        if (!DadosApp.clinica.horarioDisponivel(dataHora)) {
+            JOptionPane.showMessageDialog(null, "Horário inválido ou ocupado.");
+            return;
+        }
+        
+        Veterinario vetDisponivel = DadosApp.clinica.getVeterinarios().stream()
+                .filter(v -> v.getEspecialidade().equalsIgnoreCase(especialidade))
+                .filter(v -> DadosApp.clinica.veterinarioDisponivel(v, dataHora))
+                .findFirst()
+                .orElse(null);
+
+        if (vetDisponivel == null) {
+            JOptionPane.showMessageDialog(null, "Nenhum veterinário disponível para esta especialidade neste horário.");
+            return;
+        }
+
+        Consulta novaConsulta = new Consulta(
+                dataHora.toLocalDate(),
+                animalEncontrado,
+                true,
+                "Consulta agendada via tela",
+                "Aguardando atendimento",
+                "A definir",
+                vetDisponivel
+        );
+
+        DadosApp.clinica.getConsultas().add(novaConsulta);
+
+        JOptionPane.showMessageDialog(null, "Consulta agendada com sucesso!");
+        this.dispose();
+    }
+    
+    public void salvarEdicaoAgendamento(Agenda agendamento) {
+        try {
+            String novoDataHoraStr = txtDiaHorario.getText();
+            txtNomeAnimal.setEditable(false);
+            txtCpfTutor.setEditable(false);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            LocalDateTime novoDataHora = LocalDateTime.parse(novoDataHoraStr, formatter);
+
+            if (!agendamento.getDiaHorario().equals(novoDataHora) &&
+                    !DadosApp.clinica.horarioDisponivel(novoDataHora)) {
+                JOptionPane.showMessageDialog(this, "Horário indisponível para agendamento!");
+                return;
+            }
+
+            agendamento.setDiaHorario(novoDataHora);
+            agendamento.setEspecialidade((String) comboEspecialidade.getSelectedItem());
+
+            JOptionPane.showMessageDialog(this, "Agendamento atualizado com sucesso!");
+            this.dispose();
+
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Formato de data/hora inválido! Use dd/MM/yyyy HH:mm");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage());
+        }
+    }
+    
+    public void excluirAgendamento(Agenda ag) {
+        this.agendaSelecionada = ag;
+        int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Tem certeza que deseja excluir este agendamento?",
+                "Confirmar Exclusão",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            DadosApp.clinica.getAgendamentos().remove(ag);
+            JOptionPane.showMessageDialog(this, "Agendamento excluído com sucesso!");
+            this.dispose();
+        }
+    }
+    
+    public void inserirDados(Agenda ag) {
+    this.agendaSelecionada = ag;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    txtDiaHorario.setText(ag.getDiaHorario().format(formatter));
+    txtNomeAnimal.setText(ag.getAnimal().getNome());
+    txtCpfTutor.setText(ag.getAnimal().getTutor().getCpf());
+
+    txtNomeAnimal.setEditable(false);
+    txtCpfTutor.setEditable(false);
+
+    for (int i = 0; i < comboEspecialidade.getItemCount(); i++) {
+        if (comboEspecialidade.getItemAt(i).equals(ag.getEspecialidade())) {
+            comboEspecialidade.setSelectedIndex(i);
+            break;
+        }
+    }
+
+    // Parte crítica da sua demanda
+    botao.setText("EDITAR AGENDAMENTO");
+    btmExcluir.setVisible(true);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -145,59 +289,6 @@ public class CadAgendamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboEspecialidadeActionPerformed
 
-    
-       public void salvarEdicaoAgendamento(Agenda agendamento) {
-            try {
-                String novoDataHoraStr = txtDiaHorario.getText();
-                txtNomeAnimal.setEditable(false);
-                txtCpfTutor.setEditable(false);
-
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                LocalDateTime novoDataHora = LocalDateTime.parse(novoDataHoraStr, formatter);
-
-                // Verifica se o horário foi alterado e se está disponível
-                if (!agendamento.getDiaHorario().equals(novoDataHora) &&
-                    !DadosApp.clinica.horarioDisponivel(novoDataHora)) {
-                    JOptionPane.showMessageDialog(this, "Horário indisponível para agendamento!");
-                    return;
-                }
-                botao.setText("EDITAR AGENDAMENTO");
-                btmExcluir.setVisible(true);
-                // Atualiza os dados do agendamento
-                agendamento.setDiaHorario(novoDataHora);
-                agendamento.setEspecialidade((String) comboEspecialidade.getSelectedItem());
-
-                JOptionPane.showMessageDialog(this, "Agendamento atualizado com sucesso!");
-                this.dispose();
-
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Formato de data/hora inválido! Use dd/MM/yyyy HH:mm");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage());
-            }
-        }
-    
-    public void excluirAgendamento (Agenda ag){
-        this.agendaSelecionada = ag;
-        int resposta = JOptionPane.showConfirmDialog(
-            this,
-            "Tem certeza que deseja excluir este agendamento?",
-            "Confirmar Exclusão",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE
-        );
-
-        if (resposta == JOptionPane.YES_OPTION) {
-            DadosApp.clinica.getAgendamentos().remove(ag);
-            JOptionPane.showMessageDialog(this, "Agendamento excluído com sucesso!");
-            this.dispose(); 
-        }
-    }
-    
-    
-    
-    
     private void btmExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExcluirActionPerformed
         // TODO add your handling code here:
         if (agendaSelecionada != null) {
@@ -235,44 +326,44 @@ public class CadAgendamento extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadAgendamento().setVisible(true);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CadAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CadAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CadAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadAgendamento().setVisible(true);
         });
     }
+
    
-    public void inserirDados(Agenda ag){
-        this.agendaSelecionada = ag;  // armazena para usar depois
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        txtDiaHorario.setText(ag.getDiaHorario().format(formatter));
-        txtNomeAnimal.setText(ag.getAnimal().getNome());
-        txtCpfTutor.setText(ag.getAnimal().getTutor().getCpf());
-        for (int i = 0; i < comboEspecialidade.getItemCount(); i++) {
-            if (comboEspecialidade.getItemAt(i).equals(text)) {
-                comboEspecialidade.setSelectedIndex(i);
-                break;
-            }
-        }
-
-    btmExcluir.setVisible(true);  // mostra o botão só se estiver editando
-}
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao;
     private javax.swing.JButton btmExcluir;

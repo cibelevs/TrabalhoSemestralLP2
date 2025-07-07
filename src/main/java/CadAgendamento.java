@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class CadAgendamento extends javax.swing.JFrame {
     private Agenda agendaSelecionada = null;
+    private boolean editar;
     /**
      * Creates new form CadAgendamento
      */
@@ -24,15 +25,19 @@ public class CadAgendamento extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         btmExcluir.setVisible(false);
-        
+        this.editar = false;
         botao.setText("AGENDAR CONSULTA");
-        botao.addActionListener((e) -> {
-            if (agendaSelecionada == null) {
-                agendarConsulta();
-            } else {
-                salvarEdicaoAgendamento(agendaSelecionada);
-            }
-        });
+        
+    }
+    
+    public CadAgendamento(boolean editar) {
+        initComponents();
+        setLocationRelativeTo(null);
+        btmExcluir.setVisible(true);
+        TITULO.setText("EDITAR AGENDAMENTO");
+        botao.setText("EDITAR CONSULTA");
+        this.editar = true;
+        
     }
     
     private void agendarConsulta() {
@@ -98,8 +103,9 @@ public class CadAgendamento extends javax.swing.JFrame {
                 "A definir",
                 vetDisponivel
         );
-
+        Agenda agendamento = new Agenda(dataHora,animalEncontrado,especialidade);
         DadosApp.clinica.getConsultas().add(novaConsulta);
+        DadosApp.clinica.getAgendamentos().add(agendamento);
 
         JOptionPane.showMessageDialog(null, "Consulta agendada com sucesso!");
         this.dispose();
@@ -168,7 +174,6 @@ public class CadAgendamento extends javax.swing.JFrame {
         }
     }
 
-    // Parte crítica da sua demanda
     botao.setText("EDITAR AGENDAMENTO");
     btmExcluir.setVisible(true);
 }
@@ -183,12 +188,12 @@ public class CadAgendamento extends javax.swing.JFrame {
     private void initComponents() {
 
         txtCpfTutor = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        TITULO = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNomeAnimal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        ESPECIALIDADE = new javax.swing.JLabel();
+        HORARIO = new javax.swing.JLabel();
         txtDiaHorario = new javax.swing.JTextField();
         botao = new javax.swing.JButton();
         comboEspecialidade = new javax.swing.JComboBox<>();
@@ -196,18 +201,30 @@ public class CadAgendamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        jLabel1.setText("Agendamento de Consultas");
+        TITULO.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        TITULO.setText("Agendamento de Consultas");
 
         jLabel2.setText("Nome do Animal:");
 
         jLabel4.setText("CPF do Tutor:");
 
-        jLabel3.setText("Especialidade:");
+        ESPECIALIDADE.setText("Especialidade:");
 
-        jLabel5.setText("Dia e Horario da Consulta:");
+        HORARIO.setText("Dia e Horario da Consulta:");
+
+        txtDiaHorario.setText("formato: dd/MM/yyyy HH:mm");
+        txtDiaHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiaHorarioActionPerformed(evt);
+            }
+        });
 
         botao.setText("AGENDAR CONSULTA");
+        botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoActionPerformed(evt);
+            }
+        });
 
         comboEspecialidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cirurgião", "Cardiologista", "Endocrinologista", "Enfermeiro", "Patologista" }));
         comboEspecialidade.addActionListener(new java.awt.event.ActionListener() {
@@ -230,25 +247,27 @@ public class CadAgendamento extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TITULO)
+                        .addContainerGap(233, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(HORARIO)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtDiaHorario))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
+                                    .addComponent(ESPECIALIDADE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(comboEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCpfTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNomeAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(159, Short.MAX_VALUE))
+                                    .addComponent(txtNomeAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addComponent(btmExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,7 +279,7 @@ public class CadAgendamento extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1)
+                .addComponent(TITULO)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -271,11 +290,11 @@ public class CadAgendamento extends javax.swing.JFrame {
                     .addComponent(txtCpfTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(ESPECIALIDADE)
                     .addComponent(comboEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(HORARIO)
                     .addComponent(txtDiaHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(91, 91, 91)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -299,6 +318,20 @@ public class CadAgendamento extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Nenhum agendamento selecionado para exclusão.");
         }
     }//GEN-LAST:event_btmExcluirActionPerformed
+
+   
+    private void botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoActionPerformed
+        // TODO add your handling code here:
+        if(this.editar == false){
+            this.agendarConsulta();
+        }else{
+            salvarEdicaoAgendamento(this.agendaSelecionada);
+        }
+    }//GEN-LAST:event_botaoActionPerformed
+
+    private void txtDiaHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiaHorarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,14 +400,14 @@ public class CadAgendamento extends javax.swing.JFrame {
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ESPECIALIDADE;
+    private javax.swing.JLabel HORARIO;
+    private javax.swing.JLabel TITULO;
     private javax.swing.JButton botao;
     private javax.swing.JButton btmExcluir;
     private javax.swing.JComboBox<String> comboEspecialidade;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtCpfTutor;
     private javax.swing.JTextField txtDiaHorario;
     private javax.swing.JTextField txtNomeAnimal;

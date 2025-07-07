@@ -483,7 +483,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     if (opcao2 == JOptionPane.YES_OPTION) {
                                 CadConsulta telaConsulta = new CadConsulta();
                                 telaConsulta.setVisible(true);
-                                dispose();
+                               
                     } else{
                         JOptionPane.showMessageDialog(this, "Cadastro de consulta cancelado!");
                     }
@@ -494,7 +494,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-            String dataHoraStr = JOptionPane.showInputDialog(
+            String cpf;
+            String nomeAnimal;
+            String dataHoraStr;
+            
+              cpf = JOptionPane.showInputDialog(
+                this,
+                "Digite o cpf do Tutor"
+            );
+            nomeAnimal = JOptionPane.showInputDialog(
+                this,
+                "Digite o nome do animal"
+            );
+            
+            
+            dataHoraStr = JOptionPane.showInputDialog(
                 this,
                 "Digite o dia e horário do agendamento (formato: dd/MM/yyyy HH:mm):"
             );
@@ -511,21 +525,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
 
             Agenda agendaEncontrada = null;
+            
             for (Agenda ag : DadosApp.clinica.getAgendamentos()) {
-                if (ag.getDiaHorario().equals(dataHora)) {
+                if (ag.getAnimal().getTutor().getCpf().equalsIgnoreCase(cpf) && ag.getAnimal().getNome().equalsIgnoreCase(nomeAnimal) && ag.getDiaHorario().equals(dataHora)) {
                     agendaEncontrada = ag;
                     break;
                 }
             }
-
+            
+          
+            
             if (agendaEncontrada != null) {
-                CadAgendamento agendamentoEditar = new CadAgendamento();
+                CadAgendamento agendamentoEditar = new CadAgendamento(true);
                 agendamentoEditar.inserirDados(agendaEncontrada);
                 agendamentoEditar.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Nenhum agendamento encontrado para essa data e horário.");
             }
-
+            
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed

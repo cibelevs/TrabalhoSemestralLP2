@@ -268,47 +268,60 @@ public class InfoAnimal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Tutor tutorEncontrado = null;
+       Tutor tutorEncontrado = null;
 
         for (Tutor t : DadosApp.clinica.getTutores()) {
-            if (t.getNome().equals(txtNomeTutor.getText())) {
+            if (t.getNome().equalsIgnoreCase(txtNomeTutor.getText().trim())) {
                 tutorEncontrado = t;
-                break; // Já encontrou, pode sair do loop
+                break;
             }
         }
 
         if (tutorEncontrado != null) {
-            List<Consulta> consultasDoTutor = new ArrayList<>();
+            Animal animalEncontrado = null;
 
-            for (Consulta c : DadosApp.clinica.getConsultas()) {
-                if (c.getAnimal().getTutor().equals(tutorEncontrado)) {
-                    consultasDoTutor.add(c);
+            for (Animal a : tutorEncontrado.getAnimais()) {
+                if (a.getNome().equalsIgnoreCase(txtNome.getText().trim())
+                        && a.getTutor().equals(tutorEncontrado)) {
+                    animalEncontrado = a;
+                    break;
                 }
             }
 
-            // Ordena do mais recente para o mais antigo (data decrescente)
-            consultasDoTutor.sort((c1, c2) -> c2.getDataHora().compareTo(c1.getDataHora()));
+            if (animalEncontrado != null) {
+                List<Consulta> consultasDoAnimal = new ArrayList<>();
 
-            // Montar string com informações
-            StringBuilder sb = new StringBuilder();
-            for (Consulta c : consultasDoTutor) {
-                sb.append("Data: ").append(c.getDataHora()).append("\n");
-                sb.append("Animal: ").append(c.getAnimal().getNome()).append("\n");
-                sb.append("Problema: ").append(c.getProblema()).append("\n");
-                sb.append("Diagnóstico: ").append(c.getDiagnostico()).append("\n");
-                sb.append("Medicamento: ").append(c.getMedicamento()).append("\n");
-                sb.append("----\n");
+                for (Consulta c : DadosApp.clinica.getConsultas()) {
+                    if (c.getAnimal().equals(animalEncontrado)) {
+                        consultasDoAnimal.add(c);
+                    }
+                }
+
+                consultasDoAnimal.sort((c1, c2) -> c2.getDataHora().compareTo(c1.getDataHora()));
+
+                StringBuilder sb = new StringBuilder();
+                for (Consulta c : consultasDoAnimal) {
+                    sb.append("Data: ").append(c.getDataHora()).append("\n");
+                    sb.append("Problema: ").append(c.getProblema()).append("\n");
+                    sb.append("Diagnóstico: ").append(c.getDiagnostico()).append("\n");
+                    sb.append("Medicamento: ").append(c.getMedicamento()).append("\n");
+                    sb.append("----\n");
+                }
+
+                if (sb.length() == 0) {
+                    sb.append("Nenhuma consulta encontrada para este animal.");
+                }
+
+                JOptionPane.showMessageDialog(this, sb.toString());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Animal não encontrado para este tutor.");
             }
-
-            if (sb.length() == 0) {
-                sb.append("Nenhuma consulta encontrada para este Animal.");
-            }
-
-            JOptionPane.showMessageDialog(this, sb.toString());
 
         } else {
-            JOptionPane.showMessageDialog(this, "Tutor não encontrado");
-        }     
+            JOptionPane.showMessageDialog(this, "Tutor não encontrado.");
+        }
+  
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
